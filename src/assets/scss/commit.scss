@@ -1,0 +1,49 @@
+@mixin size($height, $width: 100%) {
+  height: $height;
+  width: $width;
+}
+@mixin borderBean($flay) {
+  @if $flat== "1" {
+    border: 1px solid;
+  }
+}
+@mixin clearFloat {
+  &::after {
+    display: block;
+    clear: both;
+    content: "";
+  }
+}
+@mixin triangle($position, $size, $color: white) {
+  height: 0;
+  width: 0;
+  border: {
+    top: $size solid transparent;
+    right: $size solid transparent;
+    left: $size solid transparent;
+    bottom: $size solid transparent;
+  }
+  border-#{$position}: $size solid $color;
+}
+@mixin ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+//实现多行省略号
+@mixin moreEllipsis($num) {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: $num;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+//实现超出省略
+%hidden {
+  overflow-y: hidden;
+  &:hover {
+    overflow-y: auto;
+  }
+}

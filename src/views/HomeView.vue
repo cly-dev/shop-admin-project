@@ -1,18 +1,19 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <div>
+    <el-button @click="handleClick" :disabled="disabled">你好</el-button>
+    {{ name }}
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
-
-@Options({
-  components: {
-    HelloWorld,
-  },
-})
-export default class HomeView extends Vue {}
+<script setup lang="ts">
+import { ref, reactive } from 'vue'
+const name = ref<string>('')
+const disabled = ref<boolean>(false)
+function handleClick() {
+  name.value = '333'
+  disabled.value = !disabled.value
+}
 </script>
+
+<style scoped>
+</style>

@@ -1,0 +1,166 @@
+.wecher-login {
+  filter: blur(5px);
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: url('../../assets/images/login/department_indexbg.jpg') no-repeat;
+  background-size: cover;
+}
+.login-content {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 0 5px #d9d9d9;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 25vw;
+  border: 1px solid #ececec;
+  transform: translate(-50%, -50%);
+  min-width: 340px;
+  padding-bottom: 1rem;
+}
+.content-header {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  height: 4rem;
+  line-height: 4rem;
+}
+
+.content-mainer {
+  text-align: center;
+  width: calc(100% - 6rem);
+  height: calc(100% - 6rem);
+  margin: 0 auto;
+  position: relative;
+  .footer-content {
+    width: 100%;
+    height: 5rem;
+    text-align: center;
+    line-height: 6rem;
+    float: right;
+    width: 100%;
+    [class^='btn'] {
+      border: 0;
+      font-size: 1.25rem;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 5rem;
+      height: 2.5rem;
+      line-height: 2.5rem;
+    }
+  }
+}
+.form-content {
+  height: calc(100% - 4rem);
+  width: 100%;
+  [class^='form'] {
+    margin-top: 1rem;
+    height: 3rem;
+    white-space: nowrap;
+    &::after {
+      clear: both;
+      display: block;
+      content: '';
+    }
+    .icon-mimasuo:before {
+      content: '\e84a';
+    }
+    .icon-mimasuo,
+    .icon-yanzhengma,
+    .icon-yonghu {
+      width: 3rem;
+      height: 3rem;
+      font-size: 1.5rem;
+      line-height: 3rem;
+      background-color: white;
+      float: left;
+      font-size: 1.3rem;
+    }
+    input {
+      height: 3rem;
+      float: left;
+      width: calc(100% - 3.7rem);
+      outline: none;
+      border: 0;
+      border: 1px solid #e6e6e6;
+      font-size: 1.2rem;
+      text-indent: 0.3rem;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+  }
+  .form-password {
+    position: relative;
+    &:hover .icon-jurassic_openeyes {
+      display: block;
+    }
+    &:hover .icon-biyan {
+      display: block;
+    }
+    input {
+      width: calc(100% - 5.7rem);
+      padding-right: 2rem;
+    }
+    .icon-jurassic_openeyes,
+    .icon-biyan {
+      position: absolute;
+      right: 1.2rem;
+      cursor: pointer;
+      display: none;
+      top: 15%;
+      font-size: 1.5rem;
+      &::hover {
+        color: gray;
+      }
+    }
+  }
+  .form-checkCode {
+    input {
+      width: calc(100% - 12.3rem);
+    }
+    .code-content {
+      float: left;
+      margin-left: 0.5rem;
+      background-color: white;
+      height: 3rem;
+      width: 8rem;
+      cursor: pointer;
+      text-align: center;
+    }
+  }
+}
+.content-mainer button {
+  margin: 8px;
+}
+.content-mainer button:first-of-type {
+  background-color: #409eff;
+  color: #ffffff;
+}
+.content-mainer button:last-of-type {
+  background-color: #ffffff;
+  color: black !important;
+  color: #ffffff;
+}
+.icon-yonghu {
+  color: #409eff;
+}
+.icon-mimasuo {
+  color: #67c23a;
+}
+.icon-yanzhengma {
+  color: #e6a23c;
+}
+
+.forgetPassword-link {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  font-size: 1rem;
+  color: #409eff;
+  &:hover {
+    text-decoration: underline;
+  }
+}

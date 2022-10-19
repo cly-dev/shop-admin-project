@@ -1,0 +1,274 @@
+html {
+  height: 100%;
+}
+
+body {
+  font-size: 14px;
+  font-family: 'PingFangSC-Regular', 'PingFangSC', '微软雅黑', 'Microsoft YaHei',
+    'miui', 'system-ui', 'Helvetica', 'Arial', 'Verdana', 'sans-serif';
+  color: #333;
+  height: 100%;
+  background-color: #f2f6fc;
+}
+#app {
+  /* height: 100%;
+  width: 100%; */
+}
+html,
+body,
+div,
+section,
+header,
+footer,
+aside,
+ul,
+ol,
+li,
+table,
+tr,
+th,
+td,
+button,
+input,
+textarea,
+select,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+em,
+i,
+strong,
+p,
+span,
+blockquote {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+em,
+th,
+i,
+strong,
+input,
+textarea,
+button,
+select {
+  font-weight: normal;
+  font-style: normal;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+table,
+td,
+th {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+input,
+button,
+select,
+textarea {
+  outline: none;
+  background: none;
+}
+
+textarea {
+  resize: none;
+}
+
+img,
+a img {
+  border: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.fc {
+  margin: 0 auto;
+}
+
+.vertical-middle {
+  vertical-align: middle;
+}
+
+/**显示隐藏**/
+
+.hidden {
+  display: none;
+}
+
+.clear:after {
+  content: '';
+  display: block;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+  clear: both;
+  font-size: 0;
+  line-height: 0;
+  overflow: hidden;
+}
+
+.clearfix {
+  zoom: 1;
+}
+
+.overflow {
+  overflow: hidden;
+}
+
+/**定位**/
+
+.posR {
+  position: relative;
+}
+
+.posA {
+  position: absolute;
+}
+
+.posF {
+  position: fixed;
+}
+
+.fb {
+  font-weight: bold;
+}
+
+.textL {
+  text-align: left;
+}
+
+.textC {
+  text-align: center;
+}
+
+.textR {
+  text-align: right;
+}
+
+.text2em {
+  text-indent: 2em;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+/* 输入框自动填入后 */
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: #333 !important; /*填充后文字颜色*/
+  background-color: transparent; /*填充后背景色 */
+  background-image: none;
+  transition: background-color 50000s ease-in-out 0s;
+  /*背景色透明  生效时长  过渡效果  启用时延迟的时间 */
+}
+
+input {
+  background-color: transparent;
+}
+
+/**输入控件 placeholder 色设置 #999**/
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: #999;
+}
+
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+  color: #999;
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+  color: #999;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  color: #999;
+}
+
+/* 浏览器滚动条样式 */
+/* width */
+::-webkit-scrollbar {
+  width: 13px;
+  height: 13px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #ededed;
+  border-radius: 7px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #d5d5d5;
+  border-radius: 7px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+
+/* 禁止用户选择 */
+.noSelect {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Chrome/Safari/Opera */
+  -khtml-user-select: none;
+  /* Konqueror */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently not supported by any browser */
+}
+
+/* 超出省略号 */
+.word-hidden {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+a:hover {
+  text-decoration: none;
+}

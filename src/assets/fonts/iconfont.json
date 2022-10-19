@@ -1,0 +1,93 @@
+{
+  "id": "2601232",
+  "name": "char",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "145442",
+      "name": "用户",
+      "font_class": "yonghu",
+      "unicode": "e633",
+      "unicode_decimal": 58931
+    },
+    {
+      "icon_id": "371803",
+      "name": "QQ",
+      "font_class": "qq",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    },
+    {
+      "icon_id": "712096",
+      "name": "邮箱",
+      "font_class": "icon-mail",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "741052",
+      "name": "密码 锁",
+      "font_class": "mimasuo",
+      "unicode": "e84a",
+      "unicode_decimal": 59466
+    },
+    {
+      "icon_id": "798086",
+      "name": "身份证号码",
+      "font_class": "shenfenzhenghaoma",
+      "unicode": "e640",
+      "unicode_decimal": 58944
+    },
+    {
+      "icon_id": "1901641",
+      "name": "粉丝趴",
+      "font_class": "fensipa",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "5378904",
+      "name": "年级",
+      "font_class": "nianji",
+      "unicode": "e652",
+      "unicode_decimal": 58962
+    },
+    {
+      "icon_id": "5652786",
+      "name": "关注",
+      "font_class": "guanzhu",
+      "unicode": "e628",
+      "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "6940840",
+      "name": "微信",
+      "font_class": "weixin",
+      "unicode": "e65c",
+      "unicode_decimal": 58972
+    },
+    {
+      "icon_id": "11613942",
+      "name": "手机",
+      "font_class": "shouji",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "723315",
+      "name": "用户组",
+      "font_class": "ai-users",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "4933365",
+      "name": "皮肤",
+      "font_class": "pifu",
+      "unicode": "e743",
+      "unicode_decimal": 59203
+    }
+  ]
+}
