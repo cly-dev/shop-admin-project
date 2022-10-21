@@ -1,8 +1,8 @@
 <!--
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-17 22:41:57
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-10-21 15:52:58
+ * @LastEditors: cly_dev 263118046@qq.com
+ * @LastEditTime: 2022-10-21 21:14:12
  * @FilePath: \shop\src\views\Home\components\HomeMainer.vue
  * @Description:主要的路由页面
 -->
@@ -36,6 +36,7 @@
 </template>
 
 <script setup lang="ts">
+import { useRefresh } from '@/hooks'
 import { reactive, computed, onMounted, watch } from 'vue'
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
 
@@ -74,10 +75,13 @@ const handleRemove = (v: any) => {
 }
 watch(
   () => tabs.path,
-  (newV: string, oldV) => {
+  (newV: string) => {
     router.push(newV)
   }
 )
+useRefresh(() => {
+  pathListSession.setJson(tabs.routeList)
+})
 onBeforeRouteUpdate((to: any, from: any) => {
   const { path } = to
   if (!tabs.routeList.includes(path)) {
@@ -87,9 +91,7 @@ onBeforeRouteUpdate((to: any, from: any) => {
   pathListSession.setJson(tabs.routeList)
 })
 onMounted(() => {
-  console.log(pathListSession.getJson())
-  console.log('----=------')
-  tabs.routeList = pathListSession.getJson()
+  tabs.routeList = pathListSession.getJson() || ['/home/welcome']
   tabs.path = route.path
 })
 </script>

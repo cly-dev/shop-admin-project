@@ -2,7 +2,7 @@
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-17 22:19:01
  * @LastEditors: cly_dev 263118046@qq.com
- * @LastEditTime: 2022-10-19 21:26:28
+ * @LastEditTime: 2022-10-21 21:25:59
  * @FilePath: \shop\src\views\Home\components\HomeSider.vue
  * @Description: 侧边菜单
 -->
@@ -62,7 +62,7 @@
         </el-sub-menu>
         <el-menu-item v-else>
           <template #title>
-            <router-link :to="value.path" class="link">
+            <router-link :to="value.path" class="link" active-class="active">
               <el-icon class="icon">
                 <component :is="value.icon"></component>
               </el-icon>
@@ -90,10 +90,13 @@ const handleClose = (key: string, keyPath: string[]) => {
   flex: 0 1 15rem
   height: 100%
   background-color: #545c64
+
   .link
-    color: white !important
+    color: white
     display: block
     width: 100%
+  .active
+    color: #409eff
     .icon
       vertical-align: middle
   span
