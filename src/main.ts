@@ -12,10 +12,11 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
+import pinia from './pinia';
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import './assets/scss/index.scss'
 console.log(process.env)
 const app = createApp(App)
-app.use(store).use(router).use(ElementPlus)
+app.use(store).use(router).use(ElementPlus).use(pinia)
 app.mount('#app')

@@ -1,8 +1,8 @@
 <!--
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-17 22:41:57
- * @LastEditors: cly_dev 263118046@qq.com
- * @LastEditTime: 2022-10-19 22:44:06
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-10-21 15:52:58
  * @FilePath: \shop\src\views\Home\components\HomeMainer.vue
  * @Description:主要的路由页面
 -->
