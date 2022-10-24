@@ -4,7 +4,7 @@
  * @Description: 创建状态库
  */
 import {defineStore} from "pinia";
-import  {computed, ref} from "vue";
+import  {computed, ref,reactive} from "vue";
 
 //常规声明
 // export const useData=defineStore('use',{
@@ -22,11 +22,15 @@ import  {computed, ref} from "vue";
 
 export const useData=defineStore('use',()=>{
     const name=ref<any>('我是阿勇');
+    const data=reactive<{name:string,age:number}>({
+        name:'阿勇',
+        age:13
+    })
     const getname=computed(()=>{
         return `${name.value} 我来啦`;
     })
     const handleChange=()=>{
         name.value='我是阿勇111';
     }
-    return {name,getname,handleChange }
+    return {name,getname,handleChange,data}
 })
