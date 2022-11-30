@@ -1,8 +1,8 @@
 <!--
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-17 22:41:57
- * @LastEditors: cly_dev 263118046@qq.com
- * @LastEditTime: 2022-10-21 21:14:12
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-11-13 23:15:54
  * @FilePath: \shop\src\views\Home\components\HomeMainer.vue
  * @Description:主要的路由页面
 -->
@@ -15,6 +15,7 @@
         type="card"
         class="demo-tabs"
         @tab-remove="handleRemove"
+        @click="handleClick"
       >
         <el-tab-pane
           v-for="item in list"
@@ -43,6 +44,7 @@ import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
 import Menu_MAP from '@/config/menu.config'
 
 import { pathListSession } from '@/storage/session'
+import { url } from 'inspector'
 
 type T = {
   path: string
@@ -50,19 +52,21 @@ type T = {
 }
 const route = useRoute()
 const router = useRouter()
-const tabs = reactive<{ path: string; routeList: string[] }>({
+const tabs = reactive<{ path: string; routeList: string[],href:string }>({
   path: '',
   routeList: ['/home/welcome'],
+  href:''
 })
 const list: T[] = computed(() => {
   return tabs.routeList.map((item: any) => {
-    return Menu_MAP.find((v: any) => v.path === item)
+    return Menu_MAP.find((v: any) => item.includes(v.path))
   })
 })
+
 const handleRemove = (v: any) => {
   const { routeList } = tabs
   const arr = tabs.routeList.filter((item: any, index: number) => {
-    if (item === v) {
+    if (item.includes(v)) {
       tabs.path = index !== 0 ? routeList[index - 1] : routeList[1]
       return false
     }
@@ -73,9 +77,14 @@ const handleRemove = (v: any) => {
   }
   tabs.routeList = arr.length === 0 ? ['/home/welcome'] : arr
 }
+const handleClick=()=>{
+  router.push(tabs.path)
+}
+
 watch(
-  () => tabs.path,
+  () => tabs.href,
   (newV: string) => {
+    console.log(newV)
     router.push(newV)
   }
 )
@@ -84,15 +93,22 @@ useRefresh(() => {
 })
 onBeforeRouteUpdate((to: any, from: any) => {
   const { path } = to
-  if (!tabs.routeList.includes(path)) {
-    tabs.routeList.push(path)
+  const arr=path.split('/');
+  const url=`/${arr[1]}/${arr[2]}`;
+  if (!tabs.routeList.some((item:string)=>{
+    return item.includes(url)
+  })) {
+    tabs.routeList.push(url)
   }
-  tabs.path = path
   pathListSession.setJson(tabs.routeList)
+  tabs.path=url
 })
 onMounted(() => {
-  tabs.routeList = pathListSession.getJson() || ['/home/welcome']
-  tabs.path = route.path
+    tabs.routeList = pathListSession.getJson() || ['/home/welcome'];
+    const {path}=route;
+    const arr=path.split('/');
+    const url=`/${arr[1]}/${arr[2]}`;
+    tabs.path=url;
 })
 </script>
 
@@ -105,5 +121,7 @@ nav {
 }
 .container {
   padding-left: 1rem;
+  height: calc(100% - 45px);
+
 }
 </style>

@@ -1,0 +1,18 @@
+.layoutContainer{
+    margin-right: 20px;
+    margin-top: 10px;
+    .layoutHeader{
+        margin-bottom: 20px;
+        // display:flex;
+        // display:;
+        .headerSlot{
+            margin-left: 10px;
+            display: inline-block;
+        }
+    }
+    .layuoutFooter{
+        margin-top: 20px;
+        display: flex;
+        flex-direction: row-reverse;
+    }
+}

@@ -1,9 +1,6 @@
 /*
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-17 23:05:41
- * @LastEditors: cly_dev 263118046@qq.com
- * @LastEditTime: 2022-10-19 21:20:47
- * @FilePath: \shop\src\config\menu.config.ts
  * @Description: 首页路由菜单
  */
 import {
@@ -23,9 +20,20 @@ const menu: Array<Router.RouterParams> = [
     icon: Discount,
   },
   {
+    path: '/home/user',
+    label: '客户管理',
+    icon: User,
+  },
+  {
     path: '/home/product',
     label: '商品管理',
     icon: Goods,
+    children:[{
+      path:'/home/product/list',
+      label:'商品列表',
+      show:false,
+      icon: Goods,
+    }]
   },
   {
     path: '/home/category',
@@ -42,11 +50,7 @@ const menu: Array<Router.RouterParams> = [
     label: '内容配置',
     icon: Brush,
   },
-  {
-    path: '/home/user',
-    label: '客户管理',
-    icon: User,
-  },
+  
   {
     path: '/home/service',
     label: '客户系统',

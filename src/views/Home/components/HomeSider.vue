@@ -1,8 +1,8 @@
 <!--
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-17 22:19:01
- * @LastEditors: cly_dev 263118046@qq.com
- * @LastEditTime: 2022-10-21 21:25:59
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-11-13 17:15:03
  * @FilePath: \shop\src\views\Home\components\HomeSider.vue
  * @Description: 侧边菜单
 -->
@@ -22,14 +22,16 @@
     >
       <!-- 第一级 -->
       <template v-for="(value, key) in Menu_MAP" :key="key">
-        <el-sub-menu :index="value.path" v-if="value.children">
+        <el-sub-menu :index="value.path" v-if="value.children && showSubMenu(value.children)">
           <template #title>
-            <el-icon>{{ value.icon }}</el-icon>
+            <el-icon class="icon">
+                <component :is="value.icon"></component>
+              </el-icon>
             <span class="nav">{{ value.label }}</span>
           </template>
           <template v-for="(sub, k) in value?.children" :key="k">
             <!-- 第二级 -->
-            <template v-if="sub?.children">
+            <template v-if="sub?.children && sub.show">
               <el-menu-item-group :key="k" :title="sub.label">
                 <!-- 第三级 -->
                 <el-menu-item
@@ -38,9 +40,7 @@
                   :index="value.path"
                 >
                   <template #title>
-                    <el-icon>
-                      {{ children.icon }}
-                    </el-icon>
+                 
                     <router-link :to="children.path">
                       {{ children.label }}
                     </router-link>
@@ -48,12 +48,9 @@
                 </el-menu-item>
               </el-menu-item-group>
             </template>
-            <template v-else>
+            <template v-else-if="sub.show">
               <el-menu-item :index="sub.path">
                 <template #title>
-                  <el-icon>
-                    {{ sub.icon }}
-                  </el-icon>
                   <router-link :to="sub.path">{{ sub.label }}</router-link>
                 </template>
               </el-menu-item>
@@ -62,7 +59,7 @@
         </el-sub-menu>
         <el-menu-item v-else>
           <template #title>
-            <router-link :to="value.path" class="link" active-class="active">
+            <router-link :to="value.path" class="link" active-class="active" replace>
               <el-icon class="icon">
                 <component :is="value.icon"></component>
               </el-icon>
@@ -78,12 +75,18 @@
 <script lang="ts" setup>
 import Menu_MAP from '@/config/menu.config'
 import {} from 'vue-router'
+import {computed} from "vue";
 const handleOpen = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
 }
 const handleClose = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
 }
+const showSubMenu=computed(()=>{
+  return ((children:any)=>{
+    return children.some((item:any)=>item.show)
+  })
+})
 </script>
 <style lang="sass" scoped>
 .homeSider

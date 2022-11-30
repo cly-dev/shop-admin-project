@@ -1,15 +1,16 @@
 /*
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-23 21:14:39
- * @LastEditors: cly_dev 263118046@qq.com
- * @LastEditTime: 2022-10-30 22:58:22
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-11-12 16:02:14
  * @FilePath: \shop\src\components\LySearch\index.tsx
  * @Description: 表单组件
  */
-import LyForm, { getFormData, resetFormData } from '../LyForm'
+import LyForm from '../LyForm'
 import { FormType } from '@/types/form'
-import { Search, RefreshRight, Plus } from '@element-plus/icons-vue'
+import { Search, RefreshRight } from '@element-plus/icons-vue'
 import './index.scss'
+import { reactive, ref } from 'vue'
 type Props = {
   search?: Function
 } & FormType.SearchConfig
@@ -17,28 +18,36 @@ const LySearch = (props: Props, { slots }: any) => {
   const {
     formConfig: { options, config },
   } = props
-  const handSearch = () => {
-    props?.search && props?.search(getFormData())
+  const formData=ref<any>({});
+ const handleChange=(v:any)=>{
+  console.log(v);
+  formData.value=v;
+  // console.log(formData)
+ }
+  function handleSearch () {
+    props?.search && props?.search(formData.value)
   }
-  const handleReset = () => {
-    resetFormData()
+  function handleReset(){
+    Object.keys(formData.value).forEach((item:any)=>{
+      formData['value'][item]='';
+    })
+  handleSearch();
   }
   console.log(slots)
   return (
-    <section class="LySearch">
-      <LyForm options={options} config={config}></LyForm>
+    <div>
+      <LyForm onFormChange={handleChange} options={options} config={config}></LyForm>
       <section class="btnContent">
         <el-button icon={RefreshRight} onClick={handleReset}>
           重置
         </el-button>
-        <el-button type="primary" icon={Search} onClick={handSearch}>
+        <el-button type="primary" icon={Search} onClick={handleSearch}>
           搜索
         </el-button>
-        <el-button icon={Plus}>新增</el-button>
-        {slots?.default?.({ handleReset, handSearch, formData: getFormData() })}
+        {slots?.default?.({ handleReset, handleSearch})}
       </section>
-    </section>
+    </div>
   )
 }
-export { getFormData }
+// export { getFormData }
 export default LySearch

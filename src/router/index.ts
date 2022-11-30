@@ -1,8 +1,8 @@
 /*
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-04 22:37:24
- * @LastEditors: cly_dev 263118046@qq.com
- * @LastEditTime: 2022-10-19 22:40:37
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-11-13 17:18:14
  * @FilePath: \shop\src\router\index.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -30,16 +30,37 @@ const routes: Array<RouteRecordRaw> = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ '../views/Home/index.vue'),
-    children: [
+      children: [
       {
         path: 'welcome',
         name: 'welcome',
         component: () => import('@/views/Home/Welcome/index.vue'),
+      },{
+        path:'user',
+        name:'user',
+        component:()=>import("@/views/Home/User/index.vue")
       },
       {
         path: 'product',
         name: 'product',
-        component: () => import('@/views/Home/Product/index.vue'),
+        redirect:{
+          name:'商品列表'
+        },
+        children:[
+          {
+            path:'list',
+            name:'商品列表',
+            component: () => import('@/views/Home/Product/list/index.vue'),
+          },{
+            path:'info',
+            name:'新增商品',
+            component:()=>import("@/views/Home/Product/info/index.vue")
+          },{
+            path:'info/:id',
+            name:'商品信息',
+            component:()=>import("@/views/Home/Product/info/index.vue")
+          },
+        ]
       },
       {
         path: 'category',

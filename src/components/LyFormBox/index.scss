@@ -1,0 +1,20 @@
+.LyformBox{
+   
+    .LyFormBoxHeader{
+        height: 40px;
+        margin:-20px -20px 0 -20px;
+        line-height: 40px;
+        padding:0 20px;
+        border-bottom: 1px solid rgb(210, 210, 210);
+        display: flex;
+        justify-content: space-between;
+        .title{
+            font-size: 14px;
+            font-weight: 600;
+        }
+    }    
+    .LyFormBoxMainer{
+        margin-top: 20px;
+
+    }
+}

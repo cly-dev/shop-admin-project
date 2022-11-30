@@ -1,14 +1,14 @@
 /*
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-21 21:17:46
- * @LastEditors: cly_dev 263118046@qq.com
- * @LastEditTime: 2022-10-30 23:29:26
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-11-06 23:14:34
  * @FilePath: \shop\src\components\LyTable\index.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import type { TabsProps } from 'element-plus'
 import { FormType } from '@/types/form'
-import LySearch, { getFormData } from '../LySearch'
+import LySearch from '../LySearch'
 import { ref } from 'vue'
 import './index.scss'
 type Props = {
@@ -20,6 +20,8 @@ type Props = {
     searchSlot: any
   }
   search?: Function
+  showSearch?:boolean
+  showPage?:boolean
 } & TabsProps
 const initConfig = {
   options: {},
@@ -38,14 +40,17 @@ const LyTable = (props: Props, { slots }: any) => {
   const handlePageChange = (type?: 'page' | 'size', v?: any) => {
     if (type === 'page' || type === 'size') {
       Object.assign(params.value, { [type]: v })
+    }else{
+      Object.assign(params.value, type)
     }
-    Object.assign(params.value, { ...getFormData() })
     props?.search && props?.search?.(params.value)
   }
   handlePageChange()
   return (
     <section>
-      <section class="tableSearch">
+      {
+        props.showSearch &&  
+        <section class="tableSearch">
         <LySearch
           search={handlePageChange}
           formConfig={searchConfig ? searchConfig.formConfig : initConfig}
@@ -55,6 +60,8 @@ const LyTable = (props: Props, { slots }: any) => {
           }}
         </LySearch>
       </section>
+      }
+     
       <el-table border stripe {...props}>
         {Column.map((item: any) => {
           return (
@@ -75,7 +82,8 @@ const LyTable = (props: Props, { slots }: any) => {
           )
         })}
       </el-table>
-      <section class="tablePage">
+      {
+        props.showPage && <section class="tablePage" >
         <el-pagination
           hide-on-single-page
           background
@@ -85,6 +93,8 @@ const LyTable = (props: Props, { slots }: any) => {
           onCurrentChange={(v: number) => handlePageChange('page', v)}
         />
       </section>
+      }
+      
     </section>
   )
 }

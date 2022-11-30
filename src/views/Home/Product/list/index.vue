@@ -1,26 +1,28 @@
 <!--
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-19 21:22:34
- * @LastEditors: cly_dev 263118046@qq.com
- * @LastEditTime: 2022-10-30 23:01:10
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-11-13 16:45:53
  * @FilePath: \shop\src\views\Home\Product\index.vue
  * @Description: 商品管理
 -->
 <template>
-  <LyTable
+  <!-- <LyTable
     :Column="ProductColumn"
     :data="tableData"
     :searchConfig="searchConfig"
     :search="handleSearch"
   >
-  </LyTable>
+  </LyTable> -->
+  <LyLayout :onAdd="handleAdd" :modalConfig="modalConfig" title="商品管理" :search="handleSearch" :tableConfig="tableConfig" :searchConfig="searchConfig"></LyLayout>
 </template>
 
 <script setup lang="ts">
 import { FormType } from '@/types/form'
-import LyTable from '@/components/LyTable/index'
-
-import { ProductColumn } from './constant'
+import {useRouter} from "vue-router";
+import LyLayout from "@/components/LyLayout/index.vue";
+import { tableConfig,searchConfig,modalConfig} from './constant'
+const router=useRouter()
 const tableData = [
   {
     id: '1',
@@ -103,11 +105,11 @@ const formConfig: FormType.FormConfig = {
   },
   options: {},
 }
-const searchConfig = {
-  formConfig,
-}
 const handleClick = (data: any) => {
   console.log(data)
+}
+const handleAdd=()=>{
+  router.push('/home/product/info')
 }
 const handleSearch = (params?: any) => {
   console.log(params)
