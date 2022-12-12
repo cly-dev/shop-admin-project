@@ -2,7 +2,7 @@
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-17 22:41:57
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-11-13 23:15:54
+ * @LastEditTime: 2022-12-11 22:47:42
  * @FilePath: \shop\src\views\Home\components\HomeMainer.vue
  * @Description:主要的路由页面
 -->
@@ -44,7 +44,6 @@ import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
 import Menu_MAP from '@/config/menu.config'
 
 import { pathListSession } from '@/storage/session'
-import { url } from 'inspector'
 
 type T = {
   path: string
@@ -113,6 +112,11 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+::v-deep{
+  .el-tabs__header{
+    margin: 0px;
+  }
+}
 main {
   flex: 1;
 }
@@ -122,6 +126,8 @@ nav {
 .container {
   padding-left: 1rem;
   height: calc(100% - 45px);
-
+  width: 100%;
+  overflow:hidden;
+  padding-top: 10px;
 }
 </style>

@@ -28,8 +28,9 @@
             <el-col :span="12" class="mt20">
                 <LyFormBox title="详细参数">
                   <template #headerRight>
-                      <el-button styles="font-size:12px" type="primary" link>新增细节</el-button>
+                      <el-button styles="font-size:12px" type="primary" link @click="handleAdd">新增细节</el-button>
                   </template>
+                <LyFormList :defaultValue="[{label:'1',value:'1'},{label:'2',value:'1'},{label:'3',value:'1'},{label:'4',value:'1'}]" ref="formListRef"></LyFormList>
                 </LyFormBox>
             </el-col>
             <el-col :span="12" class="mt20">
@@ -46,11 +47,12 @@
 import LyHeader from "@/components/LyHeader/index.vue";
 import LyFormBox from "@/components/LyFormBox/index.vue";
 import LyForm from "@/components/LyForm";
+import LyFormList from "@/components/LyFormList/index.vue";
 import {useRoute} from "vue-router";
 import { ref, watch } from "vue";
 const route=useRoute();
+const formListRef=ref<any>(null);
 const hasId=ref<boolean>(false);
-console.log(hasId)
 const formConfig={
     items: [
         {
@@ -123,6 +125,9 @@ const formConfig={
         },
       ],
       rules: [],
+}
+const handleAdd=()=>{
+  formListRef.value.handleAdd();
 }
 watch(()=>route.params,(newV:any)=>{
   console.log(newV);

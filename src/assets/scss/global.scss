@@ -279,3 +279,14 @@ a:hover {
 .mt20{
   margin-top: 20px;
 }
+
+.el-popper.is-customized {
+  /* Set padding to ensure the height is 32px */
+  padding: 6px 12px;
+  background: linear-gradient(90deg, rgb(229, 156, 151), rgb(229, 129, 129));
+  color: white;
+  }
+.el-popper.is-customized .el-popper__arrow::before {
+background: linear-gradient(90deg, rgb(229, 156, 151), rgb(229, 129, 129));
+right: 0;
+}
