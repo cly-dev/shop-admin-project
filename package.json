@@ -58,7 +58,8 @@
   },
   "lint-staged": {
     "*.{vue,tsx,ts}": [
-      "eslint --fix"
+      "eslint --fix",
+      "git commit"
     ]
   },
   "eslintConfig": {
