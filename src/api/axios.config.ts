@@ -1,8 +1,8 @@
 /*
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-08 21:01:13
- * @LastEditors: cly_dev 263118046@qq.com
- * @LastEditTime: 2022-10-08 22:32:07
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2023-02-27 22:44:49
  * @FilePath: \shop\src\api\axios.config.ts
  * @Description:axios配置
  */
@@ -18,12 +18,8 @@ export const reqInterceptor = (config: any) => {
     json: 'application/json;charset=utf-8',
     'form-data': 'multipart/form-data',
   }
-  config['headers']['Content-Type'] = type.json
+  config['headers']['Content-Type'] = type[requestType || 'json']
   // config["headers"]["token"] = token;
-  if (requestType) {
-    config['headers']['Content-Type'] = type[requestType]
-    delete config['requestType']
-  }
   if (!window.navigator.onLine) {
     ElMessage.warning('网络已断开连接')
     return
@@ -41,11 +37,11 @@ export const resInterceptor = (config: any) => {
     if (data.code === '300') {
       const router = useRouter()
       ElMessage.warning(data.msg)
-      // store.commit("clearInfo");
       router.push('/')
     }
     if (data.code !== '200') {
       ElMessage.warning(data.msg)
+      return Promise.reject(data.msg)
     } else {
       if (Object.keys(config['data']).length > 3) {
         return config['data']
@@ -57,5 +53,5 @@ export const resInterceptor = (config: any) => {
     ElMessage.warning(err.message)
     return Promise.reject(err.message)
   }
-  return config
+  return config['data']
 }

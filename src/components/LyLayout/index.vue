@@ -8,7 +8,7 @@
         <div class="layoutHeader">
             <LySearch :search="handlePageChange" :formConfig="props.searchConfig?.formConfig" v-if="props?.searchConfig" >
                 <div class="headerSlot">
-                    <el-button v-if="props.modalConfig" type="primary" :icon="Plus" @click="handleOpenModal" >新增</el-button>
+                    <el-button v-if="props.addBtn" type="primary" :icon="Plus" @click="handleOpenModal" >新增</el-button>
                     <slot name="header"></slot>
                 </div>
             </LySearch>
@@ -53,13 +53,17 @@ interface Props{
         delete?:Function,
         insert?:Function,
         page?:number,
-        size?:number
+        size?:number,
+        addBtn?:boolean
 } 
 const props=withDefaults(defineProps<Props>(),{
-    search:()=>{}
-    
+    search:()=>{},
+    addBtn:true
   }
 )
+
+const emit=defineEmits(["add",'search'])
+
 const params = ref<any>({
   page: 1,
   size: 10,
@@ -84,6 +88,7 @@ const handleOpenModal=()=>{
     props.onAdd();
     return;
   }
+  emit("add");
   visible.value=true
 }
 const handlePageChange = (type?: 'page' | 'size' | any, v?: any) => {
@@ -97,6 +102,7 @@ const handlePageChange = (type?: 'page' | 'size' | any, v?: any) => {
      Object.assign(params.value, {...type,page:1})
     }
     props?.search && props?.search?.(params.value)
+    emit("search",params.value)
 
   }
 const handleSubmit=(v:string)=>{

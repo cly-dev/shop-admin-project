@@ -2,7 +2,7 @@
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-17 22:41:57
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-12-11 22:47:42
+ * @LastEditTime: 2023-01-08 23:13:02
  * @FilePath: \shop\src\views\Home\components\HomeMainer.vue
  * @Description:主要的路由页面
 -->
@@ -125,9 +125,10 @@ nav {
 }
 .container {
   padding-left: 1rem;
-  height: calc(100% - 45px);
-  width: 100%;
-  overflow:hidden;
+  height: calc(100vh - 150px);
+  width: calc(100% - 20px);
   padding-top: 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 </style>

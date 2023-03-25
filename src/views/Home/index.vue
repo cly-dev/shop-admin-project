@@ -2,7 +2,7 @@
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-17 22:11:51
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-12-11 22:37:37
+ * @LastEditTime: 2023-01-18 13:47:06
  * @FilePath: \shop\src\views\Home\index.vue
  * @Description: 主页
 -->
@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-import { HomeFooter, HomeSider, HomeHeader, HomeMainer } from './components'
+import { HomeFooter, HomeSider, HomeHeader, HomeMainer } from './components/Layout'
 </script>
 <style lang="scss" scoped>
 @import './index.scss';

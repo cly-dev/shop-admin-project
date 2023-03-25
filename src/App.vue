@@ -15,5 +15,6 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 #app {
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
 }
 </style>

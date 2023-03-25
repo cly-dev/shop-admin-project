@@ -2,13 +2,13 @@
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-23 21:21:56
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-11-07 15:43:54
+ * @LastEditTime: 2023-01-20 15:52:04
  * @FilePath: \shop\src\types\form.d.ts
  * @Description: 表单类型声明
  */
 import type { FormProps, FormRules } from 'element-plus'
 declare namespace FormType {
-  type FormInputType = 'input' | 'select' | 'button' | 'radio'
+  type FormInputType = 'input' | 'select' | 'button' | 'radio' | 'cascader' | 'richText' | 'timePicker' | 'date'
   type FieldType = { label?: string; value: any }
   type FormItem = {
     span?: number
@@ -22,6 +22,8 @@ declare namespace FormType {
     defaultValue?: string
     options?: FieldType[],
     required?:boolean
+    relevant?:string,
+    onRelevant?:Record<string,any>
   }
   type FormConfig = {
     options: any & FormProps

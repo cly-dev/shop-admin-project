@@ -1,13 +1,10 @@
 /*
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-23 21:14:39
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-11-14 01:11:01
- * @FilePath: \shop\src\components\LySearch\index.tsx
  * @Description: 表单组件
  */
 import { FormType } from '@/types/form'
-import { defineComponent, reactive,ref,watch,defineExpose} from 'vue'
+import { defineComponent, reactive,ref,watch} from 'vue'
 import './index.scss'
 import ItemMap from './components'
 import { FormInstance, FormRules } from 'element-plus'
@@ -49,7 +46,13 @@ export default defineComponent({
     }
   })
   expose({
-    getFormInstance:()=>formRef.value
+    getFormInstance:()=>formRef.value,
+    getFieldValues:()=>formData,
+    validate:()=>new Promise((resolve,reject)=>{
+      formRef.value?.validate((valid:boolean)=>{
+        if(valid)resolve(formData)
+      })
+    }) 
   })
   
   const FormItem = (props: {
@@ -58,8 +61,10 @@ export default defineComponent({
     defaultValue: any,
     required?:string
     label?:string
+    relevant?:string,
+    onRelevant?:Function
   }) => {
-    const { modal = 'input', name,required,label } = props;
+    const { modal = 'input', name,required,label ,relevant,onRelevant} = props;
     if(required){
       const msg={
         required: true,
@@ -72,7 +77,13 @@ export default defineComponent({
         Object.assign(ruleMap,{[name]:[msg]})
       }
     }
-    const El = ItemMap[modal]
+    const El = ItemMap[modal];
+    watch(()=>formData[name],(newV:any)=>{
+      
+      if(relevant && onRelevant){
+          formData[relevant]=onRelevant(newV);
+      }
+    })
     return (
       <El v-model={formData[name]} {...props}  style={{ width: '100%' }}></El>
     )
@@ -104,5 +115,4 @@ export default defineComponent({
   )
   },
 })
-// export default LyForm
 

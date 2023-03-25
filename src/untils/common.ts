@@ -1,7 +1,7 @@
 /*
  * @Author: cly-dev 2663118046@qq.com
  * @Date: 2022-12-11 21:10:30
- * @Description: 
+ * @Description: 防抖
  */
 const debounce=(fn:Function,time:number)=>{
     let timer:any=null;

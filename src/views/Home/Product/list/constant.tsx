@@ -2,7 +2,7 @@
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-21 21:55:24
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-11-14 01:14:03
+ * @LastEditTime: 2023-01-19 02:41:10
  * @FilePath: \shop\src\views\Home\Product\constant.ts
  * @Description: 配置
  */
@@ -12,14 +12,6 @@ import {observerState} from "./context";
 import router from "@/router"
 import "./index.scss";
 const ProductColumn: TableType.ColumnType[] = [
-  {
-    type:'expand',
-    template: (data: any) => {
-      return <div class="productLabel">
-        
-         </div>
-    },
-  },
   {
     label: 'id',
     prop: 'id',
@@ -39,23 +31,25 @@ const ProductColumn: TableType.ColumnType[] = [
   },{
     label: '库存',
     prop: 'title',
+  },{
+    label: '上下架',
+    prop: 'title',
   },
   {
     label: '操作',
     prop: 'action',
     width:'300',
-    
     template: (data: any) => {
       const handleEdit=()=>{
         router.push(`/home/product/info/${data.row.id}`)
         console.log(router);
-        // window.location.href=
       }
       const handleWatch=()=>{
         observerState.visible=true;
       }
       return <>
         <el-button onClick={handleEdit}>编辑</el-button>
+        <el-button onClick={handleEdit} type="primary">上架</el-button>
         <el-button type="danger" onClick={() => handleClick(data)}>删除</el-button>
       </>
     },
@@ -85,67 +79,23 @@ export const searchConfig:FormType.SearchConfig={
         {
           modal: 'input',
           name: 'title',
-          label: 'title',
-          defaultValue: '2000',
-        },
-        {
-          modal: 'select',
-          name: 'age',
-          label: 'age',
-          options: [
-            {
-              label: '1',
-              value: 1,
-            },
-          ],
-        },
-        {
-          modal: 'radio',
-          name: 'hobby',
-          label: 'hobby',
-          options: [
-            {
-              label: '1',
-              value: 1,
-            },
-            {
-              label: '2',
-              value: 2,
-            },
-          ],
+          label: '商品名称',
+          span:8
         },
         {
           modal: 'input',
-          name: 'title',
-          label: 'title',
-          defaultValue: '2000',
+          name: 'id',
+          label: '商品Id',
+          span:8
         },
         {
-          modal: 'select',
-          name: 'age',
-          label: 'age',
-          options: [
-            {
-              label: '1',
-              value: 1,
-            },
-          ],
+          modal: 'input',
+          name: 'categoryTitle',
+          label: '类目',
+          span:8
+
         },
-        {
-          modal: 'radio',
-          name: 'hobby',
-          label: 'hobby',
-          options: [
-            {
-              label: '1',
-              value: 1,
-            },
-            {
-              label: '2',
-              value: 2,
-            },
-          ],
-        },
+       
       ],
       rules: [],
     },

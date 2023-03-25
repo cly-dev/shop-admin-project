@@ -1,8 +1,8 @@
 <!--
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-09 19:10:37
- * @LastEditors: cly_dev 263118046@qq.com
- * @LastEditTime: 2022-10-17 22:12:10
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2023-02-12 22:56:51
  * @FilePath: \shop\src\views\Login\index.vue
  * @Description: 登录页
 -->
@@ -19,9 +19,9 @@
           <span class="iconfont icon-yonghu"></span>
           <input
             type="text"
-            name="name"
+            name="adminId"
             placeholder="账号"
-            v-model="FormData.id"
+            v-model="FormData.adminId"
           />
         </section>
         <!-- 密码 -->
@@ -33,24 +33,15 @@
             placeholder="密码"
             v-model="FormData.password"
           />
-          <!-- 小眼睛 -->
-          <span
-            :class="[
-              'iconfont',
-              view ? 'icon-jurassic_openeyes' : 'icon-biyan',
-            ]"
-            @click="handleView"
-          >
-          </span>
         </section>
         <!-- 验证码 -->
         <section class="form-checkCode">
           <span class="iconfont icon-yanzhengma"></span>
           <input
             type="text"
-            name="password"
+            name="code"
             placeholder="验证码"
-            v-model="FormData.checkCode"
+            v-model="FormData.code"
           />
           <!-- 验证码 -->
           <section
@@ -73,31 +64,46 @@
 
 <script setup lang="ts">
 import { reactive, ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router';
+import {ElMessage} from "element-plus"
 
-import { getCode } from '@/api/public'
+import { getCode } from '@/api/public';
+import {login} from "@/api/admin";
+import useStore from "@/pinia/user";
+import {SETUSERDATA} from "@/pinia/actionType"
+const useUserData=useStore();
 //路由对象
 const Router: any = new (useRouter as any)()
 //获取登陆验证码
 const code = ref('')
 //标识查看密码状态
-const view = ref(true)
-const accountId = Math.ceil(Math.random() * 1000000)
-const FormData = reactive({
-  id: '',
-  checkCode: '',
+const FormData = reactive<UserType.LoginParmas>({
+  adminId: '',
   password: '',
+  code: '',
+  checkoutCode: ''
 })
 const handleClickCode = () => {
+const accountId = Math.ceil(Math.random() * 10000000)
+FormData.checkoutCode=accountId.toString();
   getCode(accountId).then((res: any) => {
     code.value = res
   })
 }
-const handleView = () => {}
-const handleLogin = () => {}
+const handleLogin = () => {
+  console.log(FormData);
+  login(FormData).then((res:any)=>{
+    ElMessage.success("登录成功");
+    useUserData[SETUSERDATA](res);
+  }).catch((err)=>{
+    console.log(err)
+    handleClickCode();
+  })
+}
 
 onMounted(() => {
   handleClickCode()
+
 })
 </script>
 

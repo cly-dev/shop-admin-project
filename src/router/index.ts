@@ -2,7 +2,7 @@
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-04 22:37:24
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-11-13 17:18:14
+ * @LastEditTime: 2023-02-27 23:39:49
  * @FilePath: \shop\src\router\index.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -65,8 +65,58 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'category',
         name: 'category',
-        component: () => import('@/views/Home/Category/index.vue'),
-      },
+        children:[{
+          path:'list',
+          name:'类目列表',
+          component:()=>import("@/views/Home/Category/list/index.vue"),
+        },{
+          path:'info/:id',
+          name:'类目编辑',
+          component:()=>import("@/views/Home/Category/info/index.vue")
+        },{
+          path:'info',
+          name:'新增类目',
+          component:()=>import("@/views/Home/Category/info/index.vue")
+        }],
+        redirect:{
+          name:'类目列表'
+        }
+        
+      },{
+        path: 'order',
+        name: 'order',
+        children:[
+          {
+            path:'list',
+            name:'订单列表',
+            component:()=>import("@/views/Home/Order/list/index.vue")
+          }
+        ],
+        redirect:{
+          name:'订单列表'
+        }
+      },{
+        path: 'config',
+        name: 'config',
+        children:[
+          {
+            path:'list',
+            name:'内容配置',
+            component:()=>import("@/views/Home/Config/list/index.vue")
+          },{
+            path:'info',
+            name:'新增内容配置',
+            component:()=>import("@/views/Home/Config/info/index.vue")
+          },{
+            path:'/info/:id',
+            name:'内容配置详情',
+            component:()=>import("@/views/Home/Config/info/index.vue")
+          }
+        ],
+        redirect:{
+          name:'内容配置'
+        }
+      }
     ],
     redirect: {
       path: '/home/welcome',

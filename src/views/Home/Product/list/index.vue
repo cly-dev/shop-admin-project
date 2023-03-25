@@ -2,19 +2,12 @@
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-19 21:22:34
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-11-13 16:45:53
+ * @LastEditTime: 2023-02-08 21:45:51
  * @FilePath: \shop\src\views\Home\Product\index.vue
  * @Description: 商品管理
 -->
 <template>
-  <!-- <LyTable
-    :Column="ProductColumn"
-    :data="tableData"
-    :searchConfig="searchConfig"
-    :search="handleSearch"
-  >
-  </LyTable> -->
-  <LyLayout :onAdd="handleAdd" :modalConfig="modalConfig" title="商品管理" :search="handleSearch" :tableConfig="tableConfig" :searchConfig="searchConfig"></LyLayout>
+  <LyLayout :onAdd="handleAdd" :modalConfig="modalConfig" title="商品管理" :search="handleSearch" :tableConfig="tableConfig" :searchConfig="searchConfig" ></LyLayout>
 </template>
 
 <script setup lang="ts">

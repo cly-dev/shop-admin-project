@@ -2,7 +2,7 @@
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-23 21:14:39
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-11-12 16:02:14
+ * @LastEditTime: 2023-01-19 02:36:28
  * @FilePath: \shop\src\components\LySearch\index.tsx
  * @Description: 表单组件
  */
@@ -33,19 +33,25 @@ const LySearch = (props: Props, { slots }: any) => {
     })
   handleSearch();
   }
-  console.log(slots)
   return (
-    <div>
-      <LyForm onFormChange={handleChange} options={options} config={config}></LyForm>
-      <section class="btnContent">
-        <el-button icon={RefreshRight} onClick={handleReset}>
-          重置
-        </el-button>
-        <el-button type="primary" icon={Search} onClick={handleSearch}>
-          搜索
-        </el-button>
-        {slots?.default?.({ handleReset, handleSearch})}
-      </section>
+    <div class="searchContainer">
+        <el-row>
+          <el-col span={18}>
+             <LyForm  onFormChange={handleChange} options={options} config={config}></LyForm>
+         </el-col>
+         <el-col span={6}>
+            <section class="btnContent">
+              <el-button icon={RefreshRight} onClick={handleReset}>
+                重置
+              </el-button>
+              <el-button type="primary" icon={Search} onClick={handleSearch}>
+                搜索
+              </el-button>
+              {slots?.default?.({ handleReset, handleSearch})}
+            </section>
+        </el-col>
+      </el-row>
+
     </div>
   )
 }
