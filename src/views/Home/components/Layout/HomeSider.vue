@@ -2,7 +2,7 @@
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-17 22:19:01
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-11-13 17:15:03
+ * @LastEditTime: 2023-03-25 15:06:55
  * @FilePath: \shop\src\views\Home\components\HomeSider.vue
  * @Description: 侧边菜单
 -->
@@ -40,7 +40,6 @@
                   :index="value.path"
                 >
                   <template #title>
-                 
                     <router-link :to="children.path">
                       {{ children.label }}
                     </router-link>
