@@ -2,7 +2,7 @@
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-17 22:19:01
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-03-25 15:06:55
+ * @LastEditTime: 2023-03-25 15:15:00
  * @FilePath: \shop\src\views\Home\components\HomeSider.vue
  * @Description: 侧边菜单
 -->
@@ -22,11 +22,14 @@
     >
       <!-- 第一级 -->
       <template v-for="(value, key) in Menu_MAP" :key="key">
-        <el-sub-menu :index="value.path" v-if="value.children && showSubMenu(value.children)">
+        <el-sub-menu
+          :index="value.path"
+          v-if="value.children && showSubMenu(value.children)"
+        >
           <template #title>
             <el-icon class="icon">
-                <component :is="value.icon"></component>
-              </el-icon>
+              <component :is="value.icon"></component>
+            </el-icon>
             <span class="nav">{{ value.label }}</span>
           </template>
           <template v-for="(sub, k) in value?.children" :key="k">
@@ -58,7 +61,12 @@
         </el-sub-menu>
         <el-menu-item v-else>
           <template #title>
-            <router-link :to="value.path" class="link" active-class="active" replace>
+            <router-link
+              :to="value.path"
+              class="link"
+              active-class="active"
+              replace
+            >
               <el-icon class="icon">
                 <component :is="value.icon"></component>
               </el-icon>
@@ -72,20 +80,20 @@
 </template>
 
 <script lang="ts" setup>
-import Menu_MAP from '@/config/menu.config'
-import {} from 'vue-router'
-import {computed} from "vue";
+import Menu_MAP from "@/config/menu.config";
+import {} from "vue-router";
+import { computed } from "vue";
 const handleOpen = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
+  console.log(key, keyPath);
+};
 const handleClose = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
-const showSubMenu=computed(()=>{
-  return ((children:any)=>{
-    return children.some((item:any)=>item.show)
-  })
-})
+  console.log(key, keyPath);
+};
+const showSubMenu = computed(() => {
+  return (children: any) => {
+    return children.some((item: any) => item.show);
+  };
+});
 </script>
 <style lang="sass" scoped>
 .homeSider
