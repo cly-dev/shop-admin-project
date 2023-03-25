@@ -2,7 +2,7 @@
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-17 22:19:01
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-03-25 15:25:11
+ * @LastEditTime: 2023-03-25 15:32:46
  * @FilePath: \shop\src\views\Home\components\HomeSider.vue
  * @Description: 侧边菜单
 -->
@@ -61,6 +61,7 @@
         </el-sub-menu>
         <el-menu-item v-else>
           <template #title>
+            
             <router-link
               :to="value.path"
               class="link"
