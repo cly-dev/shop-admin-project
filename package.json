@@ -53,13 +53,12 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged || git commit --no-verify"
+      "pre-commit": "lint-staged && git add ."
     }
   },
   "lint-staged": {
     "*.{vue,tsx,ts}": [
-      "eslint --fix",
-      "git commit"
+      "eslint --fix"
     ]
   },
   "eslintConfig": {
