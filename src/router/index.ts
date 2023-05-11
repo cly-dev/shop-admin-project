@@ -2,7 +2,7 @@
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-04 22:37:24
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-02-27 23:39:49
+ * @LastEditTime: 2023-05-06 01:07:28
  * @FilePath: \shop\src\router\index.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -104,11 +104,11 @@ const routes: Array<RouteRecordRaw> = [
             name:'内容配置',
             component:()=>import("@/views/Home/Config/list/index.vue")
           },{
-            path:'info',
+            path:'info/:type',
             name:'新增内容配置',
             component:()=>import("@/views/Home/Config/info/index.vue")
           },{
-            path:'/info/:id',
+            path:':id',
             name:'内容配置详情',
             component:()=>import("@/views/Home/Config/info/index.vue")
           }

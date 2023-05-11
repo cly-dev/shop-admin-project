@@ -2,73 +2,70 @@
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-21 21:55:24
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-01-19 02:41:10
+ * @LastEditTime: 2023-05-03 16:50:22
  * @FilePath: \shop\src\views\Home\Product\constant.ts
  * @Description: 配置
  */
-import { handleClick } from './useProduct'
 import {FormType} from "@/types/form"
 import {observerState} from "./context";
 import router from "@/router"
 import "./index.scss";
+import {updateStatus,delItem} from "./useProduct";
 const ProductColumn: TableType.ColumnType[] = [
   {
-    label: 'id',
-    prop: 'id',
-    template: (data: any) => {
-      return <span>{data?.row?.id} </span>
-    },
+    label:'id',
+    prop:'_id',
   },
   {
     label: '商品名称',
-    prop: 'title',
+    prop: 'productTitle',
   }, {
     label: '所属类目',
-    prop: 'title',
+    prop: 'categoryId',
   },{
     label:'售价',
-    prop:'title'
+    prop:'discountPrice'
   },{
     label: '库存',
-    prop: 'title',
+    prop: 'total',
   },{
     label: '上下架',
-    prop: 'title',
+    prop: 'status',
+    template:({row}:any)=>{
+      return <>{row.status==='0'?'上架':'下架'} </>
+    }
   },
   {
     label: '操作',
     prop: 'action',
     width:'300',
-    template: (data: any) => {
+    template: ({row}:any) => {
       const handleEdit=()=>{
-        router.push(`/home/product/info/${data.row.id}`)
+        router.push(`/home/product/info/${row._id}`)
         console.log(router);
       }
       const handleWatch=()=>{
         observerState.visible=true;
       }
+      const handleStatus=(status:'0' | '1')=>{
+        updateStatus(row._id,status);
+      }
       return <>
         <el-button onClick={handleEdit}>编辑</el-button>
-        <el-button onClick={handleEdit} type="primary">上架</el-button>
-        <el-button type="danger" onClick={() => handleClick(data)}>删除</el-button>
+     
+        <el-button onClick={()=>handleStatus(row.status==='0'?'1':'0')} type="primary">
+           {
+        row.status==='0'?'下架':'上架'
+        }
+        </el-button>
+        <el-button type="danger" onClick={() => delItem(row._id)}>删除</el-button>
       </>
     },
-  },
-]
-const tableData = [
-  {
-    id: '1',
-    title: '2016-05-03',
-  },
-  {
-    id: '2',
-    title: '3016-05-03',
   },
 ]
 //表格配置
 export const tableConfig={
   Column:ProductColumn,
-  data:tableData
 }
 
 //search搜索栏配置
@@ -78,24 +75,16 @@ export const searchConfig:FormType.SearchConfig={
       items: [
         {
           modal: 'input',
-          name: 'title',
+          name: 'productTitle',
           label: '商品名称',
           span:8
         },
         {
           modal: 'input',
-          name: 'id',
+          name: '_id',
           label: '商品Id',
           span:8
         },
-        {
-          modal: 'input',
-          name: 'categoryTitle',
-          label: '类目',
-          span:8
-
-        },
-       
       ],
       rules: [],
     },

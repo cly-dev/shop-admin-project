@@ -1,9 +1,7 @@
 /*
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-08 21:00:52
- * @LastEditors: cly_dev 263118046@qq.com
- * @LastEditTime: 2022-10-09 21:29:53
- * @FilePath: \shop\src\api\request.ts
+ * @LastEditors: Please set LastEditors
  * @Description: axios请求封装
  */
 import axios from 'axios'
@@ -25,9 +23,11 @@ class Request {
     axios.interceptors.response.use(resInterceptor)
   }
   get(url: string, params?: any) {
-    return axios.get(url, params)
+    return axios.get(url, {params})
   }
-  post(url: string, data: any, config?: AxiosRequestConfig) {
+  post(url: string, data: any, config?: AxiosRequestConfig & {
+    requestType?:'json' | 'form-data'
+  }) {
     return axios.post(url, data, config)
   }
   put(url: string, data?: any, config?: AxiosRequestConfig) {

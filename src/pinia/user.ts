@@ -14,7 +14,8 @@ export default defineStore('user',{
     state:():T=>{
         return {
             userData:{
-                adminId:''
+                adminId:'',
+                token:''
             }
         }
     },

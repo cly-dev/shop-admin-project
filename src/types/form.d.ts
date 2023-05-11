@@ -2,7 +2,7 @@
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-23 21:21:56
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-01-20 15:52:04
+ * @LastEditTime: 2023-05-04 00:46:34
  * @FilePath: \shop\src\types\form.d.ts
  * @Description: 表单类型声明
  */
@@ -11,6 +11,7 @@ declare namespace FormType {
   type FormInputType = 'input' | 'select' | 'button' | 'radio' | 'cascader' | 'richText' | 'timePicker' | 'date'
   type FieldType = { label?: string; value: any }
   type FormItem = {
+    hiddenItem?: boolean;
     span?: number
     type?: string
     modal: FormInputType

@@ -6,10 +6,8 @@
 <template>
   <div>
       <h1>欢迎使用该系统</h1>
-      <!-- {{ data }} -->
-      <!-- {{ code }} -->
-      <!-- {{ getCode }} -->
-      <!-- <el-button type="primary" @click="handleClick">点我</el-button> -->
+      <SearchBar :model-value="formData" @update:model-value="handleUpdata" ></SearchBar>
+      {{ formData }}
   </div>
 </template>
 
@@ -17,11 +15,23 @@
 import useData from "@/pinia/user";
 import useInit from "@/pinia/init"
 import {storeToRefs} from "pinia";
+import SearchBar from "./SearchBar.vue";
 import store from "@/store";
-import { ref,watch } from "vue";
+import { reactive, ref,watch,toRefs } from "vue";
+
+const formData=ref({
+    value:'',
+    num:0
+})
+
 const useStore=useData();
 const init=useInit();
 const {code,getCode}=storeToRefs(init)
+function handleUpdata(v:any){
+  console.log(v);
+  console.log('-=-=------------')
+  formData.value=v;
+}
 //可以通过storeToRefs对pinia的状态进行结构成ref
 // const {data}=storeToRefs(useStore);
 const handleClick=()=>{

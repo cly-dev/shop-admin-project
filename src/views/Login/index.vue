@@ -2,7 +2,7 @@
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-09 19:10:37
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-02-12 22:56:51
+ * @LastEditTime: 2023-04-16 16:09:09
  * @FilePath: \shop\src\views\Login\index.vue
  * @Description: 登录页
 -->
@@ -67,13 +67,13 @@ import { reactive, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router';
 import {ElMessage} from "element-plus"
 
+
 import { getCode } from '@/api/public';
 import {login} from "@/api/admin";
 import useStore from "@/pinia/user";
 import {SETUSERDATA} from "@/pinia/actionType"
 const useUserData=useStore();
-//路由对象
-const Router: any = new (useRouter as any)()
+const router=useRouter();
 //获取登陆验证码
 const code = ref('')
 //标识查看密码状态
@@ -95,6 +95,8 @@ const handleLogin = () => {
   login(FormData).then((res:any)=>{
     ElMessage.success("登录成功");
     useUserData[SETUSERDATA](res);
+    router.push('/home/welcome')
+    
   }).catch((err)=>{
     console.log(err)
     handleClickCode();

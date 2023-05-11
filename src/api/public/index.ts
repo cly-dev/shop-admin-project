@@ -7,7 +7,7 @@ import axios from '../request'
 const api = '/public'
 //获取验证码
 export const getCode = (code: number) => {
-  return axios.get(`${api}/ImgCode`, { params: { code } })
+  return axios.get(`${api}/ImgCode`,{ code })
 }
 //上传文件
 export const upload=(file:FormData)=>{

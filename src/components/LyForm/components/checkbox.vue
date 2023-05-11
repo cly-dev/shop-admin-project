@@ -1,13 +1,10 @@
 <!--
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-23 22:17:14
- * @LastEditors: cly_dev 263118046@qq.com
- * @LastEditTime: 2022-10-23 23:26:59
- * @FilePath: \shop\src\components\LyForm\components\radio.vue
  * @Description: 多选选择框
 -->
 <template>
-  <el-checkbox-group @change="handleChange" v-model="props.modelValue">
+  <el-checkbox-group @change="handleChange" v-model="model.modelValue">
     <el-checkbox v-for="item in props?.options" :key="item?.name">
     </el-checkbox>
   </el-checkbox-group>
@@ -15,6 +12,7 @@
 
 <script setup lang="ts">
 import { defineProps, withDefaults } from 'vue'
+import useVModel from '@/hooks/useVModel';
 const props = withDefaults(
   defineProps<{ options: any; config?: any; modelValue: any }>(),
   {
@@ -32,7 +30,10 @@ const props = withDefaults(
     },
   }
 )
+
+
 const emit = defineEmits(['change', '@update：modelValue'])
+const model=useVModel(props,'modelValue',emit);
 
 const handleChange = (v: any) => {
   emit('change', v)

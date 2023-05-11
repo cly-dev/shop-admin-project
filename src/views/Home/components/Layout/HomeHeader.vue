@@ -2,17 +2,24 @@
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-17 22:20:19
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-03-21 01:11:29
+ * @LastEditTime: 2023-04-16 16:13:11
  * @FilePath: \shop\src\views\Home\components\HomeHeader.vue
  * @Description: 首页头部
 -->
 <template>
   <header class="homeHeader">
-    <div class="info">管理员</div>
+    <div class="info">{{useAccountInfo.userData?.userName}}</div>
   </header>
 </template>
 
 <script setup lang="ts">
+import useStore from "@/pinia/user";
+
+const useAccountInfo=useStore();
+console.log(useAccountInfo)
+
+
+
 </script>
 
 <style scoped lang="scss">

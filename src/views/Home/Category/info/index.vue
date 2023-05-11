@@ -23,10 +23,9 @@
                 </LyFormBox>
             </el-col>
             <el-col :span="12">
-                <SEOForm></SEOForm>
+                <SEOForm ref="mediaRef"></SEOForm>
             </el-col>
         </el-row>
-        
     </div>
     </div>
 </template>
@@ -36,17 +35,22 @@ import LyHeader from "@/components/LyHeader/index.vue";
 import LyFormBox from "@/components/LyFormBox/index.vue";
 import LyForm from "@/components/LyForm";
 import SEOForm from "../../components/Common/SEOForm/index.vue"
+import {getCategoryTree,createCategory, getCategoryDeatail,updateCategory} from "@/api/category"
 import {useRoute} from "vue-router";
-import {  ref, watch } from "vue";
+import {  onMounted, ref, watch,reactive} from "vue";
+import { ElMessage } from "element-plus";
+import router from "@/router";
 const route=useRoute();
+const options=ref<any>([]);
 const formListRef=ref<any>(null);
 const hasId=ref<boolean>(false);
+const mediaRef=ref<any>(null);
 const formRef=ref<any>(null);
-const formConfig={
+const formConfig=reactive({
     items: [
         {
           modal: 'input',
-          name: 'name',
+          name: 'title',
           label: '类目名称',
           span:24,
           required:true,
@@ -57,41 +61,28 @@ const formConfig={
         },
         {
           modal: "cascader",
-          name: 'paraentId',
+          name: 'parentId',
           label: '关联类目',
           span:24,
-          options: [
-            {
-              label: '1',
-              value: 1,
-              children:[{
-                label:'2',
-                value:'2'
-              }]
-            },  {
-              label: '1',
-              value: 1,
-              children:[{
-                label:'2',
-                value:'2'
-              }]
-            },
-          ],
+          options,
           relevant:'level',
           onRelevant:(v:any)=>{
+            if(Array.isArray(v)){
             if(v.length<1){
-              return '一级';
+              return '1';
             }else if(v.length==1){
-              return '二级'
+              return '2'
             }else{
-              return '三级'
+              return '3'
             }
+          }else{
+            return '1'
+          }
           },
           custom:{
             clearable:true,
             props:{
               checkStrictly: true,
-
             }
           }
         },{
@@ -105,7 +96,7 @@ const formConfig={
         },
         {
           modal: 'inputNumber',
-          name: 'total',
+          name: 'sortValue',
           label: '类目排序',
           span:24,
           custom:{
@@ -115,7 +106,7 @@ const formConfig={
         },
          {
           modal: 'upload',
-          name: 'imageList',
+          name: 'iconUrl',
           type:'image',
           label: '封面图',
           span:24,
@@ -123,18 +114,6 @@ const formConfig={
           custom:{
             limit:1,
             multiple:false
-          }
-        },
-        {
-          modal: 'upload',
-          name: 'imageList',
-          type:'image',
-          label: '背景图',
-          span:24,
-          required:true,
-          custom:{
-            limit:1,
-            multiple:true
           }
         },
         {
@@ -145,157 +124,86 @@ const formConfig={
         },
       ],
       rules: [],
-}
-const mediaForm={
-    items: [
-    {
-          modal: 'upload',
-          name: 'imageList',
-          type:'image',
-          label: '封面图',
-          span:24,
-          required:true,
-          custom:{
-            limit:1,
-            multiple:false
-          }
-        },
-        {
-          modal: 'upload',
-          name: 'imageList',
-          type:'image',
-          label: '背景图',
-          span:24,
-          required:true,
-          custom:{
-            limit:1,
-            multiple:true
-          }
-        },
-       
-      ],
-      rules: [],
-}
-const seriverForm={
-  items: [
-        { 
-          modal: 'radio',
-          name: 'imageList',
-          type:'image',
-          label: '赠送运费险',
-          span:12,
-          required:true,
-          options:[
-            {
-              label:'是',
-              value:true
-            },{
-              label:'否',
-              value:false
-            }
-          ],
-          custom:{
-            limit:9,
-            multiple:true
-          }
-        },
-        {
-          modal: 'radio',
-          name: 'imageList',
-          type:'image',
-          label: '15天价保',
-          span:12,
-          required:true,
-          options:[
-            {
-              label:'是',
-              value:true
-            },{
-              label:'否',
-              value:false
-            }
-          ],
-          custom:{
-            limit:9,
-            multiple:true
-          }
-        },{
-          modal: 'radio',
-          name: 'imageList',
-          type:'image',
-          label: '包邮',
-          span:12,
-          required:true,
-          options:[
-            {
-              label:'是',
-              value:true
-            },{
-              label:'否',
-              value:false
-            }
-          ],
-          custom:{
-            limit:9,
-            multiple:true
-          }
-        },{
-          modal: 'radio',
-          name: 'imageList',
-          type:'image',
-          label: '过敏包退',
-          span:12,
-          required:true,
-          options:[
-            {
-              label:'是',
-              value:true
-            },{
-              label:'否',
-              value:false
-            }
-          ],
-          custom:{
-            limit:9,
-            multiple:true
-          }
-        },{
-          modal: 'radio',
-          name: 'imageList',
-          type:'image',
-          label: '七天无理由退换',
-          span:12,
-          required:true,
-          options:[
-            {
-              label:'是',
-              value:true
-            },{
-              label:'否',
-              value:false
-            }
-          ],
-          custom:{
-            limit:9,
-            multiple:true
-          }
-        },
-      ],
-      rules: [],
-}
+})
+
 const handleAdd=()=>{
   formListRef.value.handleAdd();
 }
-const handleSubmit=()=>{
-  console.log(formRef.value.getFieldValues());
+const handleSubmit=async()=>{
+  const seoData=await mediaRef.value.validate()
+  if(seoData){
+   formRef.value.validate().then((res: any)=>{
+    Object.keys(res).forEach((item:string)=>{
+        const data=res[item]
+        if(data){
+          if(item==='iconUrl'){
+            res[item]=data[0]['url'];
+          }
+           if(item==='parentId' && Array.isArray(data)){
+              res[item]=data[data.length - 1];
+           }
+      }else{
+        if(item==='parentId'){
+          res[item]='0';
+        }
+      } 
+  })
+  const params={...res,seoDesc:seoData.seoDesc,seoTitle:seoData.seoTitle,seoUrl:seoData.seoUrl,};
+  console.log(params);
+  console.log("数据")
+  if(hasId.value){
+    Object.assign(params,{id:route.params.id})
+    updateCategory(params).then(()=>{
+      ElMessage.success("修改成功")
+      router.push("/home/category/list")
+
+    })
+  }else{
+    createCategory(params).then(()=>{
+      ElMessage.success("创建成功");
+      router.push("/home/category/list")
+    })
+  }
+   })
+  }
 }
 watch(()=>route.params,(newV:any)=>{
-  console.log(newV);
   hasId.value=newV?.id?true:false
 },{
   immediate:true
 })
-
+onMounted(() => {
+  getCategoryTree().then((res:any)=>{
+    function formatTree(arr:any[]):any{
+        let list=[];
+          if(!arr ||arr.length===0){
+            return []
+          }      
+      list= arr.map((item:any)=>{
+          return {
+            label:item.categoryTitle,
+            value:item._id,
+            children: formatTree(item?.children || [])
+          }
+        })
+        return list
+    }
+    options.value=formatTree(res);
+  })
+  if(route.params.id){
+    getCategoryDeatail(route.params.id as string).then((doc:any)=>{
+    const formData=doc;
+    if(formData.iconUrl){
+      Object.assign(formData,{iconUrl:[{
+          uid:Math.ceil(Math.random() * 100000000),
+          url:formData.iconUrl
+        }]})
+    }
+      formRef.value.setFieldValue({...doc,title:doc.categoryTitle})
+      mediaRef.value.setFieldValue(doc)
+    })
+  }
+})
 
 </script>
 

@@ -4,5 +4,9 @@
  * @Description: 商品类型限制
  */
 declare namespace ProductType{
-    
+        interface ItemType{
+            id?:string,
+            title:string
+            
+        }
 }

@@ -6,23 +6,24 @@
 <template>
     <section class="layoutContainer">
         <div class="layoutHeader">
-            <LySearch :search="handlePageChange" :formConfig="props.searchConfig?.formConfig" v-if="props?.searchConfig" >
+            <LySearch :search="handleFormChange" :formConfig="props.searchConfig?.formConfig" v-if="props?.searchConfig" >
                 <div class="headerSlot">
-                    <el-button v-if="props.addBtn" type="primary" :icon="Plus" @click="handleOpenModal" >新增</el-button>
                     <slot name="header"></slot>
+                    <el-button v-if="props.addBtn" type="primary" :icon="Plus" @click="handleOpenModal" >新增</el-button>
                 </div>
             </LySearch>
         </div>
-        <div class="layoutMainer">
-            <LyTable :showPage="false" :Column="props.tableConfig.Column" :showSearch="false" :data="tableData" :column="props.tableConfig.Column" :page="props.page" :size="props.size" v-if="props?.tableConfig"></LyTable>
+        <div class="layoutMainer" v-loading="props.loading">
+            <LyTable  :tableConfig="props.tableConfig"  :column="props.column" :showSearch="false" :data="tableData"  :page="props.page" :size="props.size" ></LyTable>
         </div>
-        <div class="layuoutFooter">
+
+        <div class="layuoutFooter" v-if="props.showPage">
             <el-pagination
                hide-on-single-page
                background
                layout="sizes,prev, pager, next,  total"
-               :total="1000"
-               :current-page="page"
+               :total="props.total"
+               :current-page="params.page"
                @SizeChange="(v: number) => handlePageChange('size', v)"
                @CurrentChange="(v: number) => handlePageChange('page', v)"/>
         </div>
@@ -31,22 +32,29 @@
 </template>
 
 <script setup lang="ts">
+import {ElTable} from "element-plus";
 import {FormType} from "@/types/form";
 import { Plus } from '@element-plus/icons-vue'
-import {defineProps,ref,withDefaults,watch,computed} from "vue";
-import {LayoutTypeMap} from "./type";
+import {defineProps,ref,withDefaults,computed,onMounted} from "vue";
 
 import LySearch from "../LySearch";
 import LyTable from "../LyTable";
 import LyModal from "../LyModal/index.vue";
 interface Props{
+        loading?:boolean
         title:string
         searchConfig?:FormType.SearchConfig,
-        tableConfig:LayoutTypeMap.tableConfig,
+        column:TableType.ColumnType[],
+        tableData:any[]
+        total?:number
+        tableConfig?:{
+        [key in keyof typeof ElTable]?: (typeof ElTable)[key]
+        }
         modalConfig?:{
           formConfig:FormType.FormConfig,
           title?:string
         },
+        showPage?:boolean
         onAdd?:Function,
         search:Function,
         update?:Function,
@@ -58,30 +66,28 @@ interface Props{
 } 
 const props=withDefaults(defineProps<Props>(),{
     search:()=>{},
-    addBtn:true
+    addBtn:true,
+    showPage:true,
+    loading:false
   }
 )
-
 const emit=defineEmits(["add",'search'])
 
 const params = ref<any>({
   page: 1,
   size: 10,
 })
+const formData=ref<any>({});
 const modalId=ref<any>('');
-const page=ref<number>(1);
 const visible=ref<boolean>(false);
 const tableData=computed(()=>{
-  return props.tableConfig.data.map((item:any)=>{
+  return props.tableData.map((item:any)=>{
     const openModal=(v:string)=>{
       visible.value=true;
       modalId.value=v;
     }
     return Object.assign(item,{openModal})
   })
-})
-watch(visible,(newV:boolean,oldV:boolean)=>{
-  console.log(newV)
 })
 const handleOpenModal=()=>{
   if(props.onAdd){
@@ -91,23 +97,23 @@ const handleOpenModal=()=>{
   emit("add");
   visible.value=true
 }
-const handlePageChange = (type?: 'page' | 'size' | any, v?: any) => {
-    if (type === 'page' || type === 'size') {
-      if(type==='page'){
-        page.value=v;
-      }
-      Object.assign(params.value, { [type]: v })
-    }else{
-      page.value=1
-     Object.assign(params.value, {...type,page:1})
-    }
-    props?.search && props?.search?.(params.value)
-    emit("search",params.value)
-
+const handleFormChange=(v:any)=>{
+  formData.value=v;
+  params.page=1;
+  emit("search",{...v,...params.value})
+}
+const handlePageChange =  (type?: 'page' | 'size' | any, v?: any) => {
+    params.value[type]=v;
+    emit("search",{...params.value,...formData.value})
   }
 const handleSubmit=(v:string)=>{
   console.log(v);
 }
+onMounted(()=>{
+    emit("search",params.value)
+ 
+})
+
 </script>
 
 <style lang="scss" scoped>

@@ -3,55 +3,66 @@
  * @Date: 2022-10-21 21:55:24
  * @Description: 配置
  */
-import { handleClick } from './useProduct'
+// import { handleClick } from './useConfig'
 import {FormType} from "@/types/form"
-import {observerState} from "./context";
 
 import router from "@/router"
 import "./index.scss";
 import {statusMap} from "@/constant/config"
+import { timetToDate } from "@/untils/common";
+import { handleDelete, handleStatus } from "./useConfig";
 //位置
 export const configMune=[setObj('公告','notice'),setObj("轮播图",'banner'),setObj('类目推荐','category'),setObj('热门类目','hotCategory'),setObj("商品推荐","product"),setObj("活动浮窗",'activity')]
 const configColumn: TableType.ColumnType[] = [
   {
     label: 'id',
-    prop: 'id',
-    template: (data: any) => {
-      return <span>{data?.row?.id} </span>
-    },
+    prop: '_id',
+  
   },
   {
     label: '名称',
     prop: 'configTitle',
+   
   }, {
     label: '位置',
     prop: 'location',
+     template:({row}:any)=>{
+      const field=configMune.find((item)=>{
+        return item.value===row.location;
+      })
+      return field?field.label:''
+    }
   },{
-    label:'售价',
-    prop:'title'
+    label:'状态',
+    prop:'status',
+    template:({row}:any)=>{
+      return row.status==='0'?'启用':'禁用'
+    }
   },{
-    label: '库存',
-    prop: 'title',
+    label: '排序',
+    prop: 'sortValue',
   },{
-    label: '上下架',
-    prop: 'title',
+    label: '创建时间',
+    prop: 'createTime',
+    template:({row}:any)=>{
+      return <>{timetToDate(row.createTime)}</>
+    }
   },
   {
     label: '操作',
     prop: 'action',
     width:'300',
-    template: (data: any) => {
+    template: ({row}:any) => {
       const handleEdit=()=>{
-        router.push(`/home/product/info/${data.row.id}`)
-        console.log(router);
+        router.push(`/home/config/${row._id}?type=${row.location}`)
       }
       const handleWatch=()=>{
-        observerState.visible=true;
+        // observerState.visible=true;
       }
       return <>
         <el-button onClick={handleEdit}>编辑</el-button>
-        <el-button onClick={handleEdit} type="primary">上架</el-button>
-        <el-button type="danger" onClick={() => handleClick(data)}>删除</el-button>
+        <el-button onClick={()=>handleStatus(row._id,row.status==='1'?'0':'1')} type="primary">{row.status==='1'?'启用':'禁用'}</el-button>
+        <el-button type="danger" onClick={()=>handleDelete(row._id)} >删除</el-button>
       </>
     },
   },
@@ -93,7 +104,7 @@ export const searchConfig:FormType.SearchConfig={
         },
         {
           modal: 'input',
-          name: 'id',
+          name: '_id',
           label: '配置Id',
           span:8
         },
@@ -104,8 +115,6 @@ export const searchConfig:FormType.SearchConfig={
           span:8,
           options:statusMap
         },
-       
-       
       ],
       rules: [],
     },

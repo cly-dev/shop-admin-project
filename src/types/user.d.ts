@@ -21,6 +21,10 @@ declare namespace UserType{
         power?:'0' | '1',
         //注册时间
         joinTime?:number
+        //用户昵称
+        userName?:string
+        //用户token
+        token:string
     }
     type LoginParmas=Required<Record<'adminId' | 'code' | 'checkoutCode' | 'password',string>>
 }

@@ -1,8 +1,8 @@
 /*
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-25 21:49:07
- * @LastEditors: cly_dev 263118046@qq.com
- * @LastEditTime: 2022-10-25 22:31:37
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2023-05-06 01:53:07
  * @FilePath: \shop\src\components\LyForm\components\select.tsx
  * @Description: select 组件
  */
@@ -12,6 +12,8 @@ type Field = {
 }
 const Select = (props: any) => {
   const { options = [] } = props
+  console.log(props);
+  console.log("数据")
   return (
     <el-select v-model={props.modelValue} {...props}>
       {options.map((item: Field) => {

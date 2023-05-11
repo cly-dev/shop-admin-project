@@ -6,7 +6,9 @@
 <template>
     <div class="lyFromList">
        <ul class="listContent">
-            <li v-for="(item,index) in formList" :key="item.key" :draggable="dragAble" :class="`listItem ${drag.active===item.key &&(drag.index <index?'dragAfter':'dragBefore')}`"   @dragleave="()=>handleDragLeave(item.key,index)" @dragend="(e:any)=>handleDragEnd(e,item.key,index)"  @dragenter="()=>handleDragEnter(item.key)" @dragstart="()=>handleDragStart(item.key,index)">
+            <li v-for="(item,index) in formList" :key="item.key" :draggable="dragAble" :class="`listItem ${drag.active===item.key &&(drag.index <index?'dragAfter':'dragBefore')}`"   @dragleave="()=>handleDragLeave(item.key,index)" @dragend="(e:any)=>handleDragEnd(e,item.key,index)"  @dragenter="()=>handleDragEnter(item.key)" @dragstart="()=>handleDragStart(item.key,index)" @dragover="(e:DragEvent)=>{
+                e.preventDefault()
+            }">
                 <div class="itemContent">
                     <el-icon  class="locationIcon"><Sort /></el-icon>
                     <el-tooltip
@@ -93,7 +95,7 @@ const handleValite=()=>{
             valueErrList.push(item.key)
         }
     })
-    return labelErrList.length>1 && valueErrList.length>1;
+    return labelErrList.length===0 && valueErrList.length===0;
 
 }
 const handleDelete=(key:string)=>{
@@ -166,8 +168,13 @@ watch(formList.value,()=>{
 defineExpose({
     handleAdd,
     handleDelete,
-    handleValite
-    
+    handleValite,
+    getFormData:()=>{
+        return formList.value.map((item:any)=>({
+            label:item.label,
+            value:item.value
+        }))
+    }
 })
 </script>
 

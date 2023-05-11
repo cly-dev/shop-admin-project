@@ -1,18 +1,21 @@
 /*
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-08 21:01:13
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-02-27 22:44:49
- * @FilePath: \shop\src\api\axios.config.ts
  * @Description:axios配置
  */
 //默认请求地址
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
 
+import useStore from "@/pinia/user";
+import { AxiosRequestConfig } from 'axios';
+
 export const baseURL = process.env.NODE_ENV === 'development' ? '/api' : '/'
 export const timer = 60000
-export const reqInterceptor = (config: any) => {
+
+export const reqInterceptor = (config:Required<AxiosRequestConfig> & {
+  requestType:'json' | 'form-data'
+}) => {
   const requestType: 'json' | 'form-data' = config?.requestType
   const type = {
     json: 'application/json;charset=utf-8',
@@ -26,6 +29,8 @@ export const reqInterceptor = (config: any) => {
   }
   console.log(config)
   //获取token
+  const useAccount=useStore();
+  config.headers.token=useAccount.userData?.token;
   return config
 }
 

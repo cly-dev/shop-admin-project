@@ -2,7 +2,7 @@
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-17 22:41:57
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-01-08 23:13:02
+ * @LastEditTime: 2023-05-02 15:31:27
  * @FilePath: \shop\src\views\Home\components\HomeMainer.vue
  * @Description:主要的路由页面
 -->
@@ -27,10 +27,7 @@
       </el-tabs>
     </nav>
     <section class="container">
-      <router-view v-slot="{ Component }">
-        <keep-alive>
-          <component :is="Component" />
-        </keep-alive>
+      <router-view >
       </router-view>
     </section>
   </main>

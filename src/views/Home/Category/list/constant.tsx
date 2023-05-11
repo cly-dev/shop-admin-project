@@ -5,75 +5,64 @@
  */
 import {FormType} from "@/types/form"
 import {observerState} from "../context";
+import {timetToDate} from "@/untils/common";
+import useCategory from "../useCategory";
 import router from "@/router"
 import "./index.scss";
-const ProductColumn: TableType.ColumnType[] = [
-  {
-    type:'expand',
-    template: (data: any) => {
-      return <div class="productLabel">
-        
-         </div>
-    },
-  },
+import { ElMessage } from "element-plus";
+const {update,search,del}=useCategory();
+export const getList=search;
+export const Column: TableType.ColumnType[] = [
   {
     label: 'id',
-    prop: 'id',
-    template: (data: any) => {
-      return <span>{data?.row?.id} </span>
-    },
+    prop: '_id',
+    width:'300'
   },
   {
     label: '类目名称',
-    prop: 'title',
+    prop: 'categoryTitle',
   }, {
     label: '状态',
-    prop: 'title',
-  },{
-    label:'类目',
-    prop:'title'
+    prop: 'status',
+    template:(data:any)=>{
+      return <> {data.row.status==='0'?'启用':'禁用'}</>
+    }
   },{
     label: '排序',
-    prop: 'title',
+    prop: 'sortValue',
   },{
     label: '创建时间',
-    prop: 'title',
+    prop: 'creatTime',
+    template:({row}:any)=>{
+      return <>{timetToDate(row.creatTime)} </>
+    }
   },
   {
     label: '操作',
     prop: 'action',
     width:'300',
-    
-    template: (data: any) => {
+    template: ({row}:any) => {
       const handleEdit=()=>{
-        router.push(`/home/category/info/${data.row.id}`)
+        router.push(`/home/category/info/${row._id}`)
+      }
+      const handleStatus=()=>{
+        ElMessage.success("修改成功")
+        update(row._id,row.status==='0'?'1':'0')
       }
       const handleWatch=()=>{
         observerState.visible=true;
       }
       return <>
         <el-button onClick={handleEdit}>编辑</el-button>
-        <el-button type="primary" >启用</el-button>
-        <el-button type="danger" >删除</el-button>
+      
+        <el-button type="primary" onClick={handleStatus} >{row.status!=='0'?'启用':'禁用'}</el-button>
+      
+        
+        <el-button type="danger" onClick={()=>del(row._id)} >删除</el-button>
       </>
     },
   },
 ]
-const tableData = [
-  {
-    id: '1',
-    title: '2016-05-03',
-  },
-  {
-    id: '2',
-    title: '3016-05-03',
-  },
-]
-//表格配置
-export const tableConfig={
-  Column:ProductColumn,
-  data:tableData
-}
 
 //search搜索栏配置
 export const searchConfig:FormType.SearchConfig={
@@ -89,7 +78,7 @@ export const searchConfig:FormType.SearchConfig={
         },
         {
           modal: 'input',
-          name: 'categoryId',
+          name: 'id',
           label: '类目ID',
           span:8
 
@@ -106,11 +95,11 @@ export const searchConfig:FormType.SearchConfig={
             },
             {
               label: '启用',
-              value: 1,
+              value: '0',
             },
             {
               label: '禁用',
-              value: 2,
+              value: '1',
             },
           ],
         },

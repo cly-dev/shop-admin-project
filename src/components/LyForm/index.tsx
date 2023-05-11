@@ -4,7 +4,7 @@
  * @Description: 表单组件
  */
 import { FormType } from '@/types/form'
-import { defineComponent, reactive,ref,watch} from 'vue'
+import { defineComponent, onBeforeMount, reactive,ref,watch} from 'vue'
 import './index.scss'
 import ItemMap from './components'
 import { FormInstance, FormRules } from 'element-plus'
@@ -45,9 +45,24 @@ export default defineComponent({
       })
     }
   })
+  onBeforeMount(()=>{
+      Object.keys(formData).forEach((item:string)=>{
+        formData[item]=''
+      })
+  })
   expose({
+    setFieldValue:(v:any)=>{
+      items.forEach((item:any)=>{
+      Object.assign(formData,{[item.name]:v[item.name]});
+      })
+    },
     getFormInstance:()=>formRef.value,
     getFieldValues:()=>formData,
+    resetFields:()=>{
+      Object.keys(formData).forEach((k:string)=>{
+        formData[k]='';
+      })
+    },
     validate:()=>new Promise((resolve,reject)=>{
       formRef.value?.validate((valid:boolean)=>{
         if(valid)resolve(formData)
@@ -96,7 +111,9 @@ export default defineComponent({
           {items?.map((item: FormType.FormItem) => {
             const _props = { ...item, ...item.custom }
             return (
-              <el-col span={item?.span ?? 6} key={item.name}>
+              <>
+              
+                <el-col span={item?.span ?? 6} key={item.name} v-show={!item?.hiddenItem?true:false} >
                 <el-form-item {..._props} label={item.label + ':'}  prop={item.name} >
                   <FormItem
                     placeholder={
@@ -107,6 +124,8 @@ export default defineComponent({
                   ></FormItem>
                 </el-form-item>
               </el-col>
+              </>
+            
             )
           })}
         </el-row>

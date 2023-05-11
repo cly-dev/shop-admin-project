@@ -13,3 +13,22 @@ const debounce=(fn:Function,time:number)=>{
 
     }
 }
+//时间戳转具体时间
+export const timetToDate=(timer:number)=>{
+    const date=new Date(timer);
+    return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+}
+//树转列表
+export function treeToList(arr:[]){
+        let result: any[]=[];
+        if(arr.length===0){
+          return result;
+        }
+        arr.forEach((item:any)=>{
+            result.push(item);
+            if(item?.children){
+              result=[...result,...treeToList(item.children)];
+            }
+        })
+        return result;
+    }

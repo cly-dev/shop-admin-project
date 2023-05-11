@@ -9,7 +9,7 @@ export const configMune=[setObj('公告','notice'),setObj("轮播图",'banner'),
 
 
 //状态
-export const statusMap=[setObj('全部',''),setObj('启用','1'),setObj('禁用','2')]
+export const statusMap=[setObj('全部',''),setObj('启用','0'),setObj('禁用','1')]
 
 function setObj(label:any,value?:any){
     return {

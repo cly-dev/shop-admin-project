@@ -25,7 +25,8 @@
 
 <script setup lang="ts">
 import '@wangeditor/editor/dist/css/style.css'
-import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
+import {upload} from "@/api/public"
 import {onBeforeMount,defineProps,defineEmits, shallowRef, ref, watch} from "vue";
 type Props={
     modelValue?:''
@@ -33,7 +34,17 @@ type Props={
 const editorRef = shallowRef()
 const valueHtml = ref('')
 const toolbarConfig = {}
-const editorConfig = { placeholder: '请输入内容...' }
+const editorConfig = { placeholder: '请输入内容...', MENU_CONF:{
+    uploadImage:{
+        customUpload:async(file:any,insertFn:Function)=>{
+            console.log(file);
+            console.log('-=--------')
+            const formData=new FormData();
+            formData.append("file",file)
+            insertFn(await upload(formData))
+        }
+    }
+} }
 const emit=defineEmits(['update:modelValue']);
 const props=withDefaults(defineProps<Props>(),{
 
@@ -54,6 +65,7 @@ onBeforeMount(()=>{
     if(editorRef.value){
         editorRef.value.destroy();
         editorRef.value = null;
+        
     }
 })
 </script>

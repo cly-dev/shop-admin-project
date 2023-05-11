@@ -5,7 +5,7 @@
 -->
 <template>
      <LyFormBox title="SEO信息">
-        <LyForm :config="seriverForm" @FormChange="handleFormChange"></LyForm>
+        <LyForm :config="seriverForm" @FormChange="handleFormChange" ref='formRef'></LyForm>
         <div class="link">
             预览地址:
             <span class="url">
@@ -18,8 +18,9 @@
 <script setup lang="ts">
 import LyForm from "@/components/LyForm";
 import LyFormBox from "@/components/LyFormBox/index.vue";
-import {reactive}  from "vue";
+import {reactive,defineExpose,ref}  from "vue";
 const webSite=process.env.VUE_APP_ENV_WEBSITE
+const formRef=ref<any>(null)
 const formData=reactive<{urlHandle?:string}>({
     urlHandle:''
 });
@@ -48,7 +49,7 @@ const seriverForm={
           }
         },{
           modal: 'input',
-          name: 'urlHandle',
+          name: 'seoUrl',
           label: 'SEO链接',
           span:24,
           required:true,
@@ -60,6 +61,15 @@ const seriverForm={
       ],
   rules: [],
 }
+defineExpose({
+  validate:async ()=>{
+    return await formRef.value.validate()
+  },
+  setFieldValue:(v:any)=>{
+    formRef.value.setFieldValue(v);
+  }
+
+})
 const handleFormChange=(data:any)=>{
     console.log(data);
     Object.assign(formData,data);

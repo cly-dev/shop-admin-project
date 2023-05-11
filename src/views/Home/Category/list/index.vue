@@ -4,32 +4,17 @@
  * @Description: 类目管理
 -->
 <template>
-  <!-- <LyTable
-    :Column="ProductColumn"
-    :data="tableData"
-    :searchConfig="searchConfig"
-    :search="handleSearch"
-  >
-  </LyTable> -->
-  <LyLayout @add="handleAdd" :modalConfig="modalConfig" title="类目管理" @search="handleSearch" :tableConfig="tableConfig" :searchConfig="searchConfig"></LyLayout>
+  <LyLayout :loading="observerState.loading" :showPage="false" :tableConfig="{rowKey:'_id',
+      }" :column="Column" :tableData="observerState.tree" @add="handleAdd" :modalConfig="modalConfig" title="类目管理" @search="getList"  :searchConfig="searchConfig"></LyLayout>
 </template>
 
 <script setup lang="ts">
+import { observerState} from "../context"
 import { FormType } from '@/types/form'
 import {useRouter} from "vue-router";
 import LyLayout from "@/components/LyLayout/index.vue";
-import { tableConfig,searchConfig,modalConfig} from '../list/constant'
-const router=useRouter()
-const tableData = [
-  {
-    id: '1',
-    title: '2016-05-03',
-  },
-  {
-    id: '2',
-    title: '3016-05-03',
-  },
-]
+import {Column,modalConfig,searchConfig,getList} from './constant';
+const router=useRouter();
 const formConfig: FormType.FormConfig = {
   config: {
     items: [
@@ -102,16 +87,10 @@ const formConfig: FormType.FormConfig = {
   },
   options: {},
 }
-const handleClick = (data: any) => {
-  console.log(data)
-}
 const handleAdd=()=>{
   router.push('/home/category/info')
 }
-const handleSearch = (params?: any) => {
-  console.log(params)
-  console.log('-----------=--------')
-}
+
 </script>
 
 <style scoped>

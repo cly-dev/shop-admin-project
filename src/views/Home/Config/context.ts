@@ -5,10 +5,16 @@
  */
 import {reactive} from "vue";
 type T={
-    id:string,
-    visible:boolean
+   loading:boolean,
+   data:{
+    list:any[],
+    total:number
+   }
 }
 export const observerState=reactive<T>({
-    id:'',
-    visible:false,
+    loading:false,
+    data:{
+        list:[],
+        total:0
+    }
 })
