@@ -1,8 +1,13 @@
 /*
+ * @Author: cly-dev 2663118046@qq.com
+ * @Date: 2022-12-18 21:08:05
+ * @Description: 
+ */
+/*
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-04 22:37:24
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-05-06 01:07:28
+ * @LastEditTime: 2023-05-13 21:25:52
  * @FilePath: \shop\src\router\index.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -82,6 +87,10 @@ const routes: Array<RouteRecordRaw> = [
           name:'类目列表'
         }
         
+      },{
+        path: 'chat',
+        name: 'chat',
+        component:()=>import("@/views/Home/Chat/index.vue")
       },{
         path: 'order',
         name: 'order',

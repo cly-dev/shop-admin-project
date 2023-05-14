@@ -32,3 +32,10 @@ export function treeToList(arr:[]){
         })
         return result;
     }
+export const checkImg = (type: string) => {
+	return ['image/png', 'image/jpg', 'image/jpeg', 'image/webp'].includes(type)
+}
+//是否是视频
+export const checkVideo = (type: string) => {
+	return ['video/mp4', 'video/mov'].includes(type)
+}

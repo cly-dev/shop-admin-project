@@ -27,7 +27,6 @@ export const reqInterceptor = (config:Required<AxiosRequestConfig> & {
     ElMessage.warning('网络已断开连接')
     return
   }
-  console.log(config)
   //获取token
   const useAccount=useStore();
   config.headers.token=useAccount.userData?.token;

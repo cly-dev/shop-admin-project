@@ -139,11 +139,10 @@ const handleSubmit=async()=>{
 }
 onMounted(() => {
     const data={page:1,size:20,status:'0'}
-  if(route.params?.type && route.params?.type==='category'){
+  if(route.query?.type && route.query?.type==='category'){
     Object.assign(data,{level:'1'});
   }else{
     Object.assign(data,{level:'2'});
-
   }
   getCategoryList(data).then(({list}:any)=>{
    categoryOptions.value=list.map((item:any)=>({

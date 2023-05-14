@@ -9,7 +9,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "lint-staged": "lint-staged",
-     "precommit": "lint-staged"
+    "precommit": "lint-staged"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.10",
@@ -25,6 +25,7 @@
     "pinia": "^2.0.23",
     "pinia-plugin-persist": "^1.0.0",
     "register-service-worker": "^1.7.2",
+    "socket.io-client": "^4.6.1",
     "vue": "^3.2.13",
     "vue-class-component": "^8.0.0-0",
     "vue-router": "^4.0.3",

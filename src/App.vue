@@ -9,7 +9,15 @@
 </el-config-provider>
 </template>
 <script lang="ts" setup>
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
+import {loginSocket} from "@/socket/user"
+import useStore from "@/pinia/user";
+const useAccount=useStore();
+if(useAccount.userData && useAccount.userData?.adminId){
+  loginSocket(useAccount.userData?.adminId);
+}
+
+
 </script>
 <style lang="scss">
 #app {

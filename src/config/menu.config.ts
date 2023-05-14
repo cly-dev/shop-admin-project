@@ -52,8 +52,8 @@ const menu: Array<Router.RouterParams> = [
   },
   
   {
-    path: '/home/service',
-    label: '客户系统',
+    path: '/home/chat',
+    label: '客服系统',
     icon: Position,
   },
   {
