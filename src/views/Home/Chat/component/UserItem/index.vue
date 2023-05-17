@@ -1,6 +1,11 @@
+<!--
+ * @Author: cly-dev 2663118046@qq.com
+ * @Date: 2023-05-13 23:33:11
+ * @Description: 
+-->
 <template>
     <div :class="`userItem ${active?'activer':''}`">
-        <img src="/1" />
+        <img :src="props.info.avater" />
         <div class="itemInfo">
             <div class="itemName">{{ props.info.userName }}123123123dasdad11231</div>
             <div class="itemContent">{{ content }}</div>
@@ -41,6 +46,8 @@ console.log('-=--------------')
             min-height: 50px;
             min-width: 50px;
             border-radius: 50%;
+            max-height: 50px;
+            min-width: 50px;
         }
         .itemInfo{
             height: 100%;

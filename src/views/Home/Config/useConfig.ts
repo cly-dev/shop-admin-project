@@ -25,6 +25,7 @@ export const handleStatus=(id:string,status:'0' | '1')=>{
     })
 }
 export const handleDelete=(id:string)=>{
+  console.log(id)
   deleteConfig(id).then(()=>{
     ElMessage.success("删除成功");
     search(params);

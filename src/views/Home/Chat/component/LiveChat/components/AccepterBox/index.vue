@@ -44,7 +44,6 @@ console.log("-=------------属性")
 }
 .accepterBox {
 	display: flex;
-	flex-direction: row-reverse;
 	padding: 0 10px 10px 10px;
 	align-items: flex-start;
 	.accepterInfo {
@@ -55,8 +54,8 @@ console.log("-=------------属性")
 		font-size: 12px;
 	}
 	.msgBpx {
-		margin-right: 15px;
-		border-top-left-radius: 5px;
+		margin-left: 15px;
+		border-top-right-radius: 5px;
 		border-bottom-right-radius: 5px;
 		border-bottom-left-radius: 5px;
 		min-height: 30px;
@@ -64,7 +63,7 @@ console.log("-=------------属性")
 		align-items: center;
 		max-width: calc(100% - 80px);
 		text-align: left;
-		background-color: #409eff;
+		background-color: #67C23A;
 		padding: 5px;
 		color: white;
 		position: relative;
@@ -72,15 +71,15 @@ console.log("-=------------属性")
 		&::before {
 			content: '';
 			position: absolute;
-			right: -20.1px;
+			left: -20.1px;
 			border: 1px solid red;
 			top: 0px;
 			height: 0;
 			width: 0;
 			border-top: 10px solid transparent;
 			border-bottom: 10px solid transparent;
-			border-left: 10px solid #409eff;
-			border-right: 10px solid transparent;
+			border-left: 10px solid transparent;
+			border-right: 10px solid#67C23A;
 		}
 	}
 }

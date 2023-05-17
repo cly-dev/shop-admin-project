@@ -2,7 +2,7 @@
  * @Author: cly_dev 263118046@qq.com
  * @Date: 2022-10-09 19:10:37
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-04-16 16:09:09
+ * @LastEditTime: 2023-05-15 23:48:18
  * @FilePath: \shop\src\views\Login\index.vue
  * @Description: 登录页
 -->
@@ -91,7 +91,6 @@ FormData.checkoutCode=accountId.toString();
   })
 }
 const handleLogin = () => {
-  console.log(FormData);
   login(FormData).then((res:any)=>{
     ElMessage.success("登录成功");
     useUserData[SETUSERDATA](res);

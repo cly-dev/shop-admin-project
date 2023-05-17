@@ -90,7 +90,6 @@ const formConfig=reactive({
           label: '名称',
           span:24,
           required:true,
-          defaultValue: '2000',
           custom:{
             maxlength:50,
             showWordLimit:true
@@ -105,6 +104,17 @@ const formConfig=reactive({
           options,
           custom:{
             clearable:true,
+          }
+        },
+        {
+          modal: 'input',
+          name: 'skuId',
+          label: '序列号',
+          span:24,
+          required:true,
+          custom:{
+            maxlength:50,
+            showWordLimit:true
           }
         },
         {
@@ -275,6 +285,21 @@ const seriverForm={
           }
         },
         {
+          modal: 'radio',
+          name: 'freightFree',
+          label: '免运费',
+          span:12,
+           options:[
+            {
+              label:'是',
+              value:true
+            },{
+              label:'否',
+              value:false
+            }
+          ],
+        },
+        {
           modal: 'inputNumber',
           name: 'freight',
           label: '运费',
@@ -386,7 +411,7 @@ const handleSubmit=()=>{
     })
     const customList=formListRef.value.getFormData()
     const params={...baseData,...serviceData,...seoData,...media,custom:customList}
-    if(baseData.categoryId){
+    if(baseData.categoryId && Array.isArray(baseData.categoryId)){
       Object.assign(params,{categoryId:params.categoryId[params.categoryId.length - 1]})
     }
     if(!params?.mediaList){

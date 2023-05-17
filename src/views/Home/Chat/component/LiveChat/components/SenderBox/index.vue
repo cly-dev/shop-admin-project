@@ -43,6 +43,8 @@ const {info} = props
 	display: flex;
 	flex-direction: row;
 	padding: 0 10px 10px 10px;
+	flex-direction: row-reverse;
+
 	align-items: flex-start;
 	.accepterInfo {
 		text-align: center;
@@ -51,9 +53,10 @@ const {info} = props
 		margin-top: 5px;
 		font-size: 12px;
 	}
+	
 	.msgBpx {
-		margin-left: 15px;
-		border-top-right-radius: 5px;
+		margin-right: 15px;
+		border-top-left-radius: 5px;
 		border-bottom-right-radius: 5px;
 		border-bottom-left-radius: 5px;
 		min-height: 30px;
@@ -61,7 +64,7 @@ const {info} = props
 		align-items: center;
 		max-width: calc(100% - 80px);
 		text-align: left;
-		background-color: #67C23A;
+		background-color: #409eff;
 		padding: 5px;
 		color: white;
 		position: relative;
@@ -69,15 +72,15 @@ const {info} = props
 		&::before {
 			content: '';
 			position: absolute;
-			left: -20.1px;
+			right: -20.1px;
 			border: 1px solid red;
 			top: 0px;
 			height: 0;
 			width: 0;
 			border-top: 10px solid transparent;
 			border-bottom: 10px solid transparent;
-			border-left: 10px solid transparent;
-			border-right: 10px solid#67C23A;
+			border-left: 10px solid #409eff;
+			border-right: 10px solid transparent;
 		}
 	}
 }
